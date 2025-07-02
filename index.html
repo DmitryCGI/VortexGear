@@ -496,8 +496,8 @@ function toggleMobileMenu() {
       position: absolute;
       inset: 0;
       z-index: 0;
-      backdrop-filter: blur(1.5px);
-      -webkit-backdrop-filter: blur(1.5px);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
       background-color: rgba(0, 0, 0, 0.3);
     }
 
@@ -859,24 +859,9 @@ function toggleMobileMenu() {
 }
 
 </script>
-</script>
+<div class="fixed top-0 right-0 h-[220px] w-[180px] bg-[#0b0b0b]/70 z-[9998] transform translate-x-[110%] transition-transform duration-300 ease-in-out md:hidden flex flex-col shadow-[0_0_10px_#00ffe1] rounded-xl border border-[#00ffe1] backdrop-blur-md" id="mobile-menu"><div class="flex justify-end pt-2 pr-[25px]"><button class="text-white text-2xl" onclick="toggleMobileMenu()">×</button></div><div class="flex flex-col items-start px-4 pt-2 space-y-6 text-white text-[15px] font-semibold leading-relaxed"><a class="relative pb-1 w-full border-b text-gray-300 text-white text-[15px] font-semibold transition-all outline-none focus:outline-none" href="#features" onclick="handleNavClick(event, 'features');">Особенности</a><a class="relative pb-1 w-full border-b text-gray-300 text-white text-[15px] font-semibold transition-all outline-none focus:outline-none" href="#specs" onclick="handleNavClick(event, 'specs');">Характеристики</a><a class="relative pb-1 w-full border-b text-gray-300 text-white text-[15px] font-semibold transition-all outline-none focus:outline-none" href="#gallery" onclick="handleNavClick(event, 'gallery');">Галерея</a></div></div>
 
-<div
-  id="mobile-menu"
-  class="fixed top-0 right-0 h-[220px] w-[180px] bg-[#0b0b0b]/35 z-[9998] transform translate-x-[110%] transition-transform duration-300 ease-in-out md:hidden flex flex-col rounded-xl border border-[#00ffe1] backdrop-blur-md"
->
-  <div class="flex justify-end pt-2 pr-[25px]">
-    <button class="text-white text-2xl" onclick="toggleMobileMenu()">×</button>
-  </div>
-  <div class="flex flex-col items-start px-4 pt-2 space-y-6 text-white text-[15px] font-semibold leading-relaxed">
-    <a class="relative pb-1 w-full border-b text-white transition-all outline-none focus:outline-none"
-       href="#features" onclick="handleNavClick(event, 'features');">Особенности</a>
-    <a class="relative pb-1 w-full border-b text-white transition-all outline-none focus:outline-none"
-       href="#specs" onclick="handleNavClick(event, 'specs');">Характеристики</a>
-    <a class="relative pb-1 w-full border-b text-white transition-all outline-none focus:outline-none"
-       href="#gallery" onclick="handleNavClick(event, 'gallery');">Галерея</a>
-  </div>
-</div>
+
 <script>
   function handleNavClick(event, sectionId) {
     event.preventDefault();
@@ -910,24 +895,6 @@ function toggleMobileMenu() {
   }
 }
 
-</script>
-<script>
-  function toggleMobileMenu() {
-    const menu = document.getElementById('mobile-menu');
-    const isOpen = menu.classList.contains('translate-x-0');
-
-    if (isOpen) {
-      // Закрыть меню
-      menu.classList.remove('translate-x-0');
-      menu.classList.add('translate-x-[110%]');
-      menu.classList.add('shadow-[0_0_10px_#00ffe1]');
-    } else {
-      // Открыть меню
-      menu.classList.remove('translate-x-[110%]');
-      menu.classList.add('translate-x-0');
-      menu.classList.add('shadow-[0_0_10px_#00ffe1]');
-    }
-  }
 </script>
 </body>
 </html>
