@@ -274,7 +274,7 @@ function toggleMobileMenu() {
 }
 
 </style></head>
-<body class="bg-[#080808] text-white transition-colors duration-300" style="background-image: url('photo/vortex_bckg.png'); background-size: cover; background-position: center; background-attachment: fixed;"><div id="top"></div>
+<body class="bg-[#080808] text-white transition-colors duration-300"><div class="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat" style="background-image: url('photo/vortex_bckg.png');"></div><div class="relative z-10"><div id="top"></div>
 <!-- Header -->
 <header class="sticky top-0 z-50 bg-transparent">
 <div class="blur-fade">
@@ -860,8 +860,6 @@ function toggleMobileMenu() {
 
 </script>
 <div class="fixed top-0 right-0 h-[220px] w-[180px] bg-[#0b0b0b]/70 z-[9998] transform translate-x-[110%] transition-transform duration-300 ease-in-out md:hidden flex flex-col shadow-[0_0_10px_#00ffe1] rounded-xl border border-[#00ffe1] backdrop-blur-md" id="mobile-menu"><div class="flex justify-end pt-2 pr-[25px]"><button class="text-white text-2xl" onclick="toggleMobileMenu()">×</button></div><div class="flex flex-col items-start px-4 pt-2 space-y-6 text-white text-[15px] font-semibold leading-relaxed"><a class="relative pb-1 w-full border-b text-gray-300 text-white text-[15px] font-semibold transition-all outline-none focus:outline-none" href="#features" onclick="handleNavClick(event, 'features');">Особенности</a><a class="relative pb-1 w-full border-b text-gray-300 text-white text-[15px] font-semibold transition-all outline-none focus:outline-none" href="#specs" onclick="handleNavClick(event, 'specs');">Характеристики</a><a class="relative pb-1 w-full border-b text-gray-300 text-white text-[15px] font-semibold transition-all outline-none focus:outline-none" href="#gallery" onclick="handleNavClick(event, 'gallery');">Галерея</a></div></div>
-
-
 <script>
   function handleNavClick(event, sectionId) {
     event.preventDefault();
@@ -896,5 +894,5 @@ function toggleMobileMenu() {
 }
 
 </script>
-</body>
+</div></body>
 </html>
