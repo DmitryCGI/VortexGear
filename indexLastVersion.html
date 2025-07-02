@@ -839,17 +839,12 @@ function toggleMobileMenu() {
 }
 
 </script>
-</div>
 <script>
   document.getElementById("order-form").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const submitButton = this.querySelector("button[type='submit']");
-    submitButton.disabled = true;
-    submitButton.textContent = "Отправка...";
-
-    const token = "8106374286:AAFw70LTQEFCRUsSHPWhTVBbIIvA0IvdMeQ";
-    const chatId = "559575493";
+    const token = "8106374286:AAFw70LTQEFCRUsSHPWhTVBbIIvA0IvdMeQ"; // 🔁 вставь сюда токен своего бота
+    const chatId = "559575493";  // 🔁 вставь сюда свой chat_id
 
     const name = document.getElementById("name").value;
     const phone = document.getElementById("phone").value;
@@ -878,26 +873,16 @@ function toggleMobileMenu() {
     .then(response => {
       if (response.ok) {
         alert("✅ Заявка отправлена! Мы свяжемся с вами.");
-        document.getElementById("order-form").reset();
-        submitButton.textContent = "Отправлено (ждите...)";
-        setTimeout(() => {
-          submitButton.disabled = false;
-          submitButton.textContent = "Отправить заявку";
-        }, 10000); // 10 секунд
       } else {
         alert("❌ Ошибка при отправке. Попробуйте ещё раз.");
-        submitButton.disabled = false;
-        submitButton.textContent = "Отправить заявку";
       }
     })
     .catch(error => {
       console.error("Ошибка:", error);
       alert("❌ Ошибка при подключении к Telegram.");
-      submitButton.disabled = false;
-      submitButton.textContent = "Отправить заявку";
     });
   });
 </script>
 
-</body>
+</div></body>
 </html>
