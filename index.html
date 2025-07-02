@@ -172,14 +172,64 @@
   border-image: linear-gradient(to right, #00ffe1, #007cf0);
   border-image-slice: 1;
 }
+
+@supports (-webkit-touch-callout: none) {
+  #modelCard::after {
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+  }
+}
+
 </style>
-<script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" type="module"></script>
+<script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" type="module">
+function toggleMobileMenu() {
+  const menu = document.getElementById("mobile-menu");
+  const isOpen = !menu.classList.contains("translate-x-[110%]");
+  menu.classList.toggle("translate-x-[110%]");
+  menu.classList.toggle("translate-x-0");
+
+  if (!isOpen) {
+    menu.classList.add("shadow-xl", "backdrop-blur-md");
+  } else {
+    menu.classList.remove("shadow-xl", "backdrop-blur-md");
+  }
+}
+
+</script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Vortex Gear Black Titan - Киберспортивный стол</title>
 <base target="_self"/>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/@preline/preline@2.0.0/dist/preline.min.js"></script>
+<script src="https://cdn.tailwindcss.com">
+function toggleMobileMenu() {
+  const menu = document.getElementById("mobile-menu");
+  const isOpen = !menu.classList.contains("translate-x-[110%]");
+  menu.classList.toggle("translate-x-[110%]");
+  menu.classList.toggle("translate-x-0");
+
+  if (!isOpen) {
+    menu.classList.add("shadow-xl", "backdrop-blur-md");
+  } else {
+    menu.classList.remove("shadow-xl", "backdrop-blur-md");
+  }
+}
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@preline/preline@2.0.0/dist/preline.min.js">
+function toggleMobileMenu() {
+  const menu = document.getElementById("mobile-menu");
+  const isOpen = !menu.classList.contains("translate-x-[110%]");
+  menu.classList.toggle("translate-x-[110%]");
+  menu.classList.toggle("translate-x-0");
+
+  if (!isOpen) {
+    menu.classList.add("shadow-xl", "backdrop-blur-md");
+  } else {
+    menu.classList.remove("shadow-xl", "backdrop-blur-md");
+  }
+}
+
+</script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
 <script>
     tailwind.config = {
@@ -194,15 +244,37 @@
         }
       }
     }
-  </script>
+  
+function toggleMobileMenu() {
+  const menu = document.getElementById("mobile-menu");
+  const isOpen = !menu.classList.contains("translate-x-[110%]");
+  menu.classList.toggle("translate-x-[110%]");
+  menu.classList.toggle("translate-x-0");
+
+  if (!isOpen) {
+    menu.classList.add("shadow-xl", "backdrop-blur-md");
+  } else {
+    menu.classList.remove("shadow-xl", "backdrop-blur-md");
+  }
+}
+
+</script>
 <style>
 @media (max-width: 920px) {
   .order-btn-wrapper {
     display: none;
   }
 }
+
+@supports (-webkit-touch-callout: none) {
+  #modelCard::after {
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+  }
+}
+
 </style></head>
-<body class="bg-[#080808] text-white transition-colors duration-300"><div class="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat" style="background-image: url('photo/vortex_bckg.png');"></div><div class="relative z-10"><div id="top"></div>
+<body class="bg-[#080808] text-white transition-colors duration-300" style="background-image: url('photo/vortex_bckg.png'); background-size: cover; background-position: center; background-attachment: fixed;"><div id="top"></div>
 <!-- Header -->
 <header class="sticky top-0 z-50 bg-transparent">
 <div class="blur-fade">
@@ -425,7 +497,7 @@
       inset: 0;
       z-index: 0;
       backdrop-filter: blur(1.5px);
-      -webkit-backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(1.5px);
       background-color: rgba(0, 0, 0, 0.3);
     }
 
@@ -445,7 +517,15 @@
         transform: scale(1.015);
       }
     }
-  </style>
+  
+@supports (-webkit-touch-callout: none) {
+  #modelCard::after {
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+  }
+}
+
+</style>
 <section class="py-20 bg-[#080808] text-white" id="order">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -532,7 +612,21 @@
 
       modelSelect.addEventListener("change", updateModelInfo);
       updateModelInfo();
-    </script>
+    
+function toggleMobileMenu() {
+  const menu = document.getElementById("mobile-menu");
+  const isOpen = !menu.classList.contains("translate-x-[110%]");
+  menu.classList.toggle("translate-x-[110%]");
+  menu.classList.toggle("translate-x-0");
+
+  if (!isOpen) {
+    menu.classList.add("shadow-xl", "backdrop-blur-md");
+  } else {
+    menu.classList.remove("shadow-xl", "backdrop-blur-md");
+  }
+}
+
+</script>
 </section>
 <!-- FAQ Section -->
 <section class="py-20">
@@ -654,12 +748,26 @@ function toggleMobileMenu() {
   const menu = document.getElementById("mobile-menu");
   if (menu.classList.contains("translate-x-0")) {
     menu.classList.remove("translate-x-0");
-    menu.classList.add("translate-x-full");
+    menu.classList.add("translate-x-[110%]");
   } else {
-    menu.classList.remove("translate-x-full");
+    menu.classList.remove("translate-x-[110%]");
     menu.classList.add("translate-x-0");
   }
 }
+
+function toggleMobileMenu() {
+  const menu = document.getElementById("mobile-menu");
+  const isOpen = !menu.classList.contains("translate-x-[110%]");
+  menu.classList.toggle("translate-x-[110%]");
+  menu.classList.toggle("translate-x-0");
+
+  if (!isOpen) {
+    menu.classList.add("shadow-xl", "backdrop-blur-md");
+  } else {
+    menu.classList.remove("shadow-xl", "backdrop-blur-md");
+  }
+}
+
 </script>
 <script>
     function toggleAccordion(id) {
@@ -677,7 +785,21 @@ function toggleMobileMenu() {
         icon.classList.add('rotate-180');
       }
     }
-  </script>
+  
+function toggleMobileMenu() {
+  const menu = document.getElementById("mobile-menu");
+  const isOpen = !menu.classList.contains("translate-x-[110%]");
+  menu.classList.toggle("translate-x-[110%]");
+  menu.classList.toggle("translate-x-0");
+
+  if (!isOpen) {
+    menu.classList.add("shadow-xl", "backdrop-blur-md");
+  } else {
+    menu.classList.remove("shadow-xl", "backdrop-blur-md");
+  }
+}
+
+</script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
       const modelSelect = document.getElementById("model");
@@ -690,7 +812,21 @@ function toggleMobileMenu() {
         modelPrice.textContent = price;
       });
     });
-  </script>
+  
+function toggleMobileMenu() {
+  const menu = document.getElementById("mobile-menu");
+  const isOpen = !menu.classList.contains("translate-x-[110%]");
+  menu.classList.toggle("translate-x-[110%]");
+  menu.classList.toggle("translate-x-0");
+
+  if (!isOpen) {
+    menu.classList.add("shadow-xl", "backdrop-blur-md");
+  } else {
+    menu.classList.remove("shadow-xl", "backdrop-blur-md");
+  }
+}
+
+</script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
       const select = document.querySelector("select");
@@ -708,8 +844,39 @@ function toggleMobileMenu() {
       select.addEventListener("change", updateModelDisplay);
       updateModelDisplay(); // initial update
     });
-  </script>
-<div class="fixed top-0 right-0 h-[220px] w-[180px] bg-[#0b0b0b]/70 z-[9998] transform translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col shadow-[0_0_10px_#00ffe1] rounded-xl border border-[#00ffe1] backdrop-blur-md" id="mobile-menu"><div class="flex justify-end pt-2 pr-[25px]"><button class="text-white text-2xl" onclick="toggleMobileMenu()">×</button></div><div class="flex flex-col items-start px-4 pt-2 space-y-6 text-white text-[15px] font-semibold leading-relaxed"><a class="relative pb-1 w-full border-b text-gray-300 text-white text-[15px] font-semibold transition-all outline-none focus:outline-none" href="#features" onclick="handleNavClick(event, 'features');">Особенности</a><a class="relative pb-1 w-full border-b text-gray-300 text-white text-[15px] font-semibold transition-all outline-none focus:outline-none" href="#specs" onclick="handleNavClick(event, 'specs');">Характеристики</a><a class="relative pb-1 w-full border-b text-gray-300 text-white text-[15px] font-semibold transition-all outline-none focus:outline-none" href="#gallery" onclick="handleNavClick(event, 'gallery');">Галерея</a></div></div>
+  
+function toggleMobileMenu() {
+  const menu = document.getElementById("mobile-menu");
+  const isOpen = !menu.classList.contains("translate-x-[110%]");
+  menu.classList.toggle("translate-x-[110%]");
+  menu.classList.toggle("translate-x-0");
+
+  if (!isOpen) {
+    menu.classList.add("shadow-xl", "backdrop-blur-md");
+  } else {
+    menu.classList.remove("shadow-xl", "backdrop-blur-md");
+  }
+}
+
+</script>
+</script>
+
+<div
+  id="mobile-menu"
+  class="fixed top-0 right-0 h-[220px] w-[180px] bg-[#0b0b0b]/35 z-[9998] transform translate-x-[110%] transition-transform duration-300 ease-in-out md:hidden flex flex-col rounded-xl border border-[#00ffe1] backdrop-blur-md"
+>
+  <div class="flex justify-end pt-2 pr-[25px]">
+    <button class="text-white text-2xl" onclick="toggleMobileMenu()">×</button>
+  </div>
+  <div class="flex flex-col items-start px-4 pt-2 space-y-6 text-white text-[15px] font-semibold leading-relaxed">
+    <a class="relative pb-1 w-full border-b text-white transition-all outline-none focus:outline-none"
+       href="#features" onclick="handleNavClick(event, 'features');">Особенности</a>
+    <a class="relative pb-1 w-full border-b text-white transition-all outline-none focus:outline-none"
+       href="#specs" onclick="handleNavClick(event, 'specs');">Характеристики</a>
+    <a class="relative pb-1 w-full border-b text-white transition-all outline-none focus:outline-none"
+       href="#gallery" onclick="handleNavClick(event, 'gallery');">Галерея</a>
+  </div>
+</div>
 <script>
   function handleNavClick(event, sectionId) {
     event.preventDefault();
@@ -722,13 +889,45 @@ function toggleMobileMenu() {
     const menu = document.getElementById('mobile-menu');
     if (menu) {
       menu.classList.remove('translate-x-0');
-      menu.classList.add('translate-x-full');
+      menu.classList.add('translate-x-[110%]');
     }
 
     if (event.target && typeof event.target.blur === 'function') {
       event.target.blur();
     }
   }
+
+function toggleMobileMenu() {
+  const menu = document.getElementById("mobile-menu");
+  const isOpen = !menu.classList.contains("translate-x-[110%]");
+  menu.classList.toggle("translate-x-[110%]");
+  menu.classList.toggle("translate-x-0");
+
+  if (!isOpen) {
+    menu.classList.add("shadow-xl", "backdrop-blur-md");
+  } else {
+    menu.classList.remove("shadow-xl", "backdrop-blur-md");
+  }
+}
+
 </script>
-</div></body>
+<script>
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const isOpen = menu.classList.contains('translate-x-0');
+
+    if (isOpen) {
+      // Закрыть меню
+      menu.classList.remove('translate-x-0');
+      menu.classList.add('translate-x-[110%]');
+      menu.classList.add('shadow-[0_0_10px_#00ffe1]');
+    } else {
+      // Открыть меню
+      menu.classList.remove('translate-x-[110%]');
+      menu.classList.add('translate-x-0');
+      menu.classList.add('shadow-[0_0_10px_#00ffe1]');
+    }
+  }
+</script>
+</body>
 </html>
