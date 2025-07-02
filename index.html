@@ -200,7 +200,32 @@
       }
     }
   </style>
+
+  <style>
+    @media (max-width: 1024px) {
+      body {
+        background-attachment: scroll !important;
+        background-size: cover !important;
+        background-repeat: no-repeat !important;
+        background-position: center top !important;
+        background-image: url('photo/vortex_bckg.png') !important;
+      }
+
+      section, header, footer {
+        background-color: rgba(8, 8, 8, 0.95);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+      }
+    }
+
+    @supports (-webkit-touch-callout: none) {
+      body {
+        background-attachment: scroll !important;
+      }
+    }
+  </style>
 </head>
+
 
 
 <body class="bg-[#080808] text-white transition-colors duration-300"
