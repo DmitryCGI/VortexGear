@@ -1008,20 +1008,17 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("load", function () {
   const preloader = document.getElementById("preloader");
-  if (!preloader) return;
-
-  preloader.style.display = "flex";
-  preloader.style.opacity = "1";
-
-  setTimeout(() => {
+  if (preloader) {
     preloader.style.transition = "opacity 0.5s ease";
-    preloader.style.opacity = "0";
     setTimeout(() => {
-      preloader.style.display = "none";
-    }, 500);
-  }, 2000);
+      preloader.style.opacity = "0";
+      setTimeout(() => {
+        preloader.style.display = "none";
+      }, 500);
+    }, 2000);
+  }
 });
 </script></body>
 </html>
