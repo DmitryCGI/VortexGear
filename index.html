@@ -893,28 +893,8 @@ function handleNavClick(event, sectionId) {
   }
 }
 </script>
-<script>
-window.addEventListener('load', () => {
-  const preloader = document.getElementById('preloader');
-  if (preloader) {
-    preloader.classList.add('opacity-0');
-    setTimeout(() => {
-      preloader.remove();
-    }, 700);
-  }
-});
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  setTimeout(() => {
-    const preloader = document.getElementById("preloader");
-    if (preloader) {
-      preloader.style.opacity = "0";
-      setTimeout(() => preloader.remove(), 700);
-    }
-  }, 3000);
-});
-</script>
+
+
 <!-- Бургер-фон + меню -->
 <div class="fixed inset-0 z-[9998] hidden md:hidden bg-black/70 backdrop-blur-md" id="mobile-overlay" onclick="closeMobileMenu()">
 </div>
@@ -1027,5 +1007,17 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 </script>
-</body>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const preloader = document.getElementById("preloader");
+  if (preloader) {
+    preloader.style.display = "flex";
+    preloader.style.opacity = "1";
+    setTimeout(() => {
+      preloader.style.opacity = "0";
+      setTimeout(() => preloader.style.display = "none", 500);
+    }, 3000);
+  }
+});
+</script></body>
 </html>
