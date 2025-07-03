@@ -311,19 +311,50 @@ function toggleMobileMenu() {
   animation: menu-hide 0.5s ease-in forwards;
 }
 </style>
-</head>
+<style>
+/* Оптимизированный CSS */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #080808;
+  color: white;
+}
+button {
+  border: none;
+  border-radius: 9999px;
+  background: linear-gradient(to right, #00aaff, #00ffee);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 12px #00ffeeaa;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+</style><style>
+html.loading body {
+  opacity: 0;
+}
+body {
+  transition: opacity 0.2s ease-in;
+}
+</style></head>
 <!-- Priority Preloader -->
-<div id="preloader" style="position:fixed; inset:0; background:#0a0a0a; z-index:999999; display:flex; align-items:center; justify-content:center; transition:opacity 0.7s;">
-<img alt="Vortex Logo" src="photo/vortex_logo.png" style="width: 130px; height: 130px; animation: pulse 1.5s ease-in-out infinite;"/>
-</div>
 <style>
 @keyframes pulse {
   0%, 100% { transform: scale(1); opacity: 0.8; }
   50% { transform: scale(1.05); opacity: 1; }
 }
 </style>
-<body class="bg-[#080808] text-white transition-colors duration-300 overflow-x-hidden"><div class="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat" style="background-color: #080808; background-image: url('photo/vortex_bckg.png'); background-size: cover; background-position: center;"></div>
-<div class="relative z-10"><div id="top"></div>
+<body class="bg-[#080808] text-white transition-colors duration-300 overflow-x-hidden">
+<div class="relative z-10">
 <!-- Header -->
 <header class="sticky top-0 z-50 bg-transparent">
 <div class="blur-fade">
@@ -479,7 +510,6 @@ function toggleMobileMenu() {
 <div class="flex justify-center">
 <div class="relative rounded-2xl" style="width: 100%; max-width: 2500px; height: 700px;">
 <!-- Светящаяся рамка через before -->
-<div class="absolute inset-0 z-0 rounded-2xl pointer-events-none glow-border"></div>
 <!-- Сам viewer, поверх -->
 <model-viewer alt="Black Titan 3D View" ar="" ar-modes="webxr scene-viewer quick-look" auto-rotate="" camera-controls="" class="relative z-10 rounded-2xl" shadow-intensity="2" shadow-softness="1" src="model/black-titan.glb" style="width: 100%; height: 100%; background-color: #0f0f0f;">
 </model-viewer>
@@ -847,19 +877,14 @@ function toggleMobileMenu() {
 
 </script>
 <!-- Overlay: фон, ловит клик -->
-<div class="fixed inset-0 z-[9998] hidden md:hidden bg-black/70 backdrop-blur-md" id="mobile-overlay" onclick="closeMobileMenu()">
-</div>
 <!-- Бургер-меню поверх overlay -->
 <div class="fixed inset-0 z-[999] bg-[#0b0b0b]/60 backdrop-blur-md text-white scale-0 opacity-0 transition-all duration-300 ease-in-out flex flex-col justify-center items-center space-y-8 md:hidden drop-shadow-lg" id="mobile-menu" onclick="event.stopPropagation()">
 <!-- Close button -->
 <button class="absolute top-6 right-6 text-4xl text-white font-bold focus:outline-none" onclick="toggleMobileMenu()">×</button>
 <!-- Menu items -->
 <a class="text-2xl font-semibold hover:text-vortex-accent transition-all drop-shadow-md hover:scale-110 tracking-wide font-bold" href="#features" onclick="handleNavClick(event, 'features')">Особенности</a>
-<div class="w-3/4 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-50"></div>
 <a class="text-2xl font-semibold hover:text-vortex-accent transition-all drop-shadow-md hover:scale-110 tracking-wide font-bold" href="#specs" onclick="handleNavClick(event, 'specs')">Характеристики</a>
-<div class="w-3/4 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-50"></div>
 <a class="text-2xl font-semibold hover:text-vortex-accent transition-all drop-shadow-md hover:scale-110 tracking-wide font-bold" href="#gallery" onclick="handleNavClick(event, 'gallery')">Галерея</a>
-<div class="w-3/4 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-50"></div>
 </div>
 <script defer="">
 function toggleMobileMenu() {
@@ -893,11 +918,7 @@ function handleNavClick(event, sectionId) {
   }
 }
 </script>
-
-
 <!-- Бургер-фон + меню -->
-<div class="fixed inset-0 z-[9998] hidden md:hidden bg-black/70 backdrop-blur-md" id="mobile-overlay" onclick="closeMobileMenu()">
-</div>
 <script>
   document.getElementById("order-form").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -1008,24 +1029,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const preloader = document.getElementById("preloader");
-  if (preloader) {
-    preloader.style.display = "flex";
-    preloader.style.opacity = "1";
-  }
-});
-
-window.addEventListener("load", function () {
-  const preloader = document.getElementById("preloader");
-  if (!preloader) return;
-  setTimeout(() => {
-    preloader.style.transition = "opacity 0.5s ease";
-    preloader.style.opacity = "0";
-    setTimeout(() => {
-      preloader.style.display = "none";
-    }, 500);
-  }, 2000);
+document.documentElement.classList.add("loading");
+window.addEventListener("load", () => {
+  document.documentElement.classList.remove("loading");
 });
 </script></body>
 </html>
