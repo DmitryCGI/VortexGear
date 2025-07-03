@@ -775,10 +775,10 @@ function toggleMobileMenu() {
 <div class="max-w-xs w-full">
 <h3 class="text-white font-bold text-lg mb-4">Контакты</h3>
 <ul class="space-y-2">
-<li class="flex items-center justify-center"><i class="fas fa-phone-alt mr-2"></i><span><a href="tel:+380669118097">+380 (66)
-                  911-80-97</a></span></li>
-<li class="flex items-center justify-center"><i class="fas fa-phone-alt mr-2"></i><span><a href="tel:+380668039635">+380 (66)
-                  803-96-35</a></span></li>
+<li class="flex items-center justify-center"><i class="fas fa-phone-alt mr-2"></i><span>+380 (66)
+                  911-80-97</span></li>
+<li class="flex items-center justify-center"><i class="fas fa-phone-alt mr-2"></i><span>+380 (66)
+                  803-96-35</span></li>
 <li class="flex items-center justify-center"><i class="fas fa-envelope mr-2"></i><span>info@vortexgear.ua</span></li>
 <li class="flex items-center justify-center"><i class="fas fa-map-marker-alt mr-2"></i><span>Харків</span>
 </li>
@@ -1010,14 +1010,18 @@ document.addEventListener("DOMContentLoaded", function () {
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   const preloader = document.getElementById("preloader");
-  if (preloader) {
-    preloader.style.display = "flex";
-    preloader.style.opacity = "1";
+  if (!preloader) return;
+
+  preloader.style.display = "flex";
+  preloader.style.opacity = "1";
+
+  setTimeout(() => {
+    preloader.style.transition = "opacity 0.5s ease";
+    preloader.style.opacity = "0";
     setTimeout(() => {
-      preloader.style.opacity = "0";
-      setTimeout(() => preloader.style.display = "none", 500);
-    }, 3000);
-  }
+      preloader.style.display = "none";
+    }, 500);
+  }, 3000);
 });
 </script></body>
 </html>
