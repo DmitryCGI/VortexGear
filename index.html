@@ -200,21 +200,7 @@ function toggleMobileMenu() {
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Vortex Gear Black Titan - Киберспортивный стол</title>
 <base target="_self"/>
-<script src="https://cdn.tailwindcss.com">
-function toggleMobileMenu() {
-  const menu = document.getElementById("mobile-menu");
-  const isOpen = !menu.classList.contains("translate-x-[110%]");
-  menu.classList.toggle("translate-x-[110%]");
-  menu.classList.toggle("translate-x-0");
-
-  if (!isOpen) {
-    menu.classList.add("shadow-xl", "backdrop-blur-md");
-  } else {
-    menu.classList.remove("shadow-xl", "backdrop-blur-md");
-  }
-}
-
-</script>
+<script defer="" src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/@preline/preline@2.0.0/dist/preline.min.js">
 function toggleMobileMenu() {
   const menu = document.getElementById("mobile-menu");
@@ -273,8 +259,71 @@ function toggleMobileMenu() {
   }
 }
 
-</style></head>
-<body class="bg-[#080808] text-white transition-colors duration-300"><div class="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat" style="background-image: url('photo/vortex_bckg.png');"></div><div class="relative z-10"><div id="top"></div>
+</style>
+<style>
+  body {
+    background-color: #080808;
+    color: white;
+  }
+</style>
+<!-- Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-BL0MH2146Q"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BL0MH2146Q');
+</script>
+<style>
+    @keyframes fade-in {
+      0% { opacity: 0; transform: scaleX(0.5); }
+      100% { opacity: 1; transform: scaleX(1); }
+    }
+    .animate-fade-in {
+      animation: fade-in 0.4s ease forwards;
+    }
+    </style>
+<style>
+@keyframes menu-reveal {
+  0% {
+    clip-path: circle(0% at 50% 50%);
+    opacity: 0;
+  }
+  100% {
+    clip-path: circle(150% at 50% 50%);
+    opacity: 1;
+  }
+}
+@keyframes menu-hide {
+  0% {
+    clip-path: circle(150% at 50% 50%);
+    opacity: 1;
+  }
+  100% {
+    clip-path: circle(0% at 50% 50%);
+    opacity: 0;
+  }
+}
+#mobile-menu.animating-in {
+  animation: menu-reveal 0.6s ease-out forwards;
+}
+#mobile-menu.animating-out {
+  animation: menu-hide 0.5s ease-in forwards;
+}
+</style>
+</head>
+<!-- Priority Preloader -->
+<div id="preloader" style="position:fixed; inset:0; background:#0a0a0a; z-index:999999; display:flex; align-items:center; justify-content:center; transition:opacity 0.7s;">
+<img alt="Vortex Logo" src="photo/vortex_logo.png" style="width: 130px; height: 130px; animation: pulse 1.5s ease-in-out infinite;"/>
+</div>
+<style>
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+</style>
+<body class="bg-[#080808] text-white transition-colors duration-300 overflow-x-hidden"><div class="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat" style="background-color: #080808; background-image: url('photo/vortex_bckg.png'); background-size: cover; background-position: center;"></div>
+<div class="relative z-10"><div id="top"></div>
 <!-- Header -->
 <header class="sticky top-0 z-50 bg-transparent">
 <div class="blur-fade">
@@ -283,9 +332,8 @@ function toggleMobileMenu() {
 <div class="flex items-center">
 <a class="flex items-center" href="#top" onclick="handleNavClick(event, 'top')">
 <img alt="Vortex Gear Logo" class="h-10 w-auto" src="photo/vortex_logo.png"/>
-<span class="ml-2 text-xl font-bold text-blue-700 gradient-text">Vortex Gear</span>
-</a>
-</div>
+<span class="ml-2 text-xl font-bold text-white"><span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent font-bold">Vortex Gear</span></span>
+</a></div>
 <div class="hidden md:flex items-center space-x-12 text-lg lg:text-xl">
 <a class="text-white hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-[#007cf0] hover:to-[#00f2c3] font-medium transition-colors" href="#features" onclick="handleNavClick(event, 'features')">Особенности</a>
 <a class="text-white hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-[#007cf0] hover:to-[#00f2c3] font-medium transition-colors" href="#specs" onclick="handleNavClick(event, 'specs')">Характеристики</a>
@@ -333,7 +381,7 @@ function toggleMobileMenu() {
 </div>
 </section>
 <!-- Features Section -->
-<section class="py-20 bg-[#0b0b0b]" id="features">
+<section class="py-20 bg-[#0b0b0b]/60 backdrop-blur-md" id="features">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="text-center mb-16">
 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Игровые преимущества</h2>
@@ -560,8 +608,8 @@ function toggleMobileMenu() {
 <input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="phone" required="" type="tel"/>
 </div>
 <div>
-<label class="block text-sm font-medium text-gray-300 mb-1" for="email">Email</label>
-<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="email" required="" type="email"/>
+<label class="block text-sm font-medium text-gray-300 mb-1" for="Telegram">Telegram</label>
+<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="telegram" name="telegram" placeholder="@yourusername" required="" type="text"/>
 </div>
 <div>
 <label class="block text-sm font-medium text-gray-300 mb-1" for="model">Модель</label>
@@ -707,6 +755,7 @@ function toggleMobileMenu() {
 <a class="text-gray-400 hover:text-white transition-colors" href="#"><i class="fab fa-vk"></i></a>
 <a class="text-gray-400 hover:text-white transition-colors" href="#"><i class="fab fa-telegram"></i></a>
 <a class="text-gray-400 hover:text-white transition-colors" href="#"><i class="fab fa-youtube"></i></a>
+<div class="w-3/4 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent opacity-60"></div>
 </div>
 </div>
 </div>
@@ -738,14 +787,10 @@ function toggleMobileMenu() {
 </div>
 </div>
 </div>
-<div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-500">
-<p>© 2023 Vortex Gear. Все права защищены.</p>
-</div>
+<div class="pt-8 text-center text-gray-500"><p>© 2023 Vortex Gear. Все права защищены.</p></div>
 </div>
 </footer>
 <script>
-
-
 </script>
 <script>
     function toggleAccordion(id) {
@@ -767,44 +812,7 @@ function toggleMobileMenu() {
 
 
 </script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const modelSelect = document.getElementById("model");
-      const modelName = document.getElementById("model-name");
-      const modelPrice = document.getElementById("model-price");
-
-      modelSelect.addEventListener("change", function () {
-        const [name, price] = this.value.split(" - ");
-        modelName.textContent = name;
-        modelPrice.textContent = price;
-      });
-    });
-  
-
-
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const select = document.querySelector("select");
-      const modelName = document.getElementById("modelName");
-      const modelPrice = document.getElementById("modelPrice");
-
-      function updateModelDisplay() {
-        const selected = select.value.split(" - ");
-        if (selected.length === 2) {
-          modelName.textContent = selected[0];
-          modelPrice.textContent = selected[1];
-        }
-      }
-
-      select.addEventListener("change", updateModelDisplay);
-      updateModelDisplay(); // initial update
-    });
-  
-
-
-</script>
-<div class="fixed top-0 right-0 h-[220px] w-[180px] bg-[#0b0b0b]/70 z-[9998] transform translate-x-[110%] transition-transform duration-300 ease-in-out md:hidden flex flex-col shadow-[0_0_10px_#00ffe1] rounded-xl border border-[#00ffe1] backdrop-blur-md" id="mobile-menu"><div class="flex justify-end pt-2 pr-[25px]"><button class="text-white text-2xl" onclick="toggleMobileMenu()">×</button></div><div class="flex flex-col items-start px-4 pt-2 space-y-6 text-white text-[15px] font-semibold leading-relaxed"><a class="relative pb-1 w-full border-b text-gray-300 text-white text-[15px] font-semibold transition-all outline-none focus:outline-none" href="#features" onclick="handleNavClick(event, 'features');">Особенности</a><a class="relative pb-1 w-full border-b text-gray-300 text-white text-[15px] font-semibold transition-all outline-none focus:outline-none" href="#specs" onclick="handleNavClick(event, 'specs');">Характеристики</a><a class="relative pb-1 w-full border-b text-gray-300 text-white text-[15px] font-semibold transition-all outline-none focus:outline-none" href="#gallery" onclick="handleNavClick(event, 'gallery');">Галерея</a></div></div>
+</div>
 <script>
   function handleNavClick(event, sectionId) {
     event.preventDefault();
@@ -839,6 +847,77 @@ function toggleMobileMenu() {
 }
 
 </script>
+<!-- Overlay: фон, ловит клик -->
+<div class="fixed inset-0 z-[9998] hidden md:hidden bg-black/70 backdrop-blur-md" id="mobile-overlay" onclick="closeMobileMenu()">
+</div>
+<!-- Бургер-меню поверх overlay -->
+<div class="fixed inset-0 z-[999] bg-[#0b0b0b]/60 backdrop-blur-md text-white scale-0 opacity-0 transition-all duration-300 ease-in-out flex flex-col justify-center items-center space-y-8 md:hidden drop-shadow-lg" id="mobile-menu" onclick="event.stopPropagation()">
+<!-- Close button -->
+<button class="absolute top-6 right-6 text-4xl text-white font-bold focus:outline-none" onclick="toggleMobileMenu()">×</button>
+<!-- Menu items -->
+<a class="text-2xl font-semibold hover:text-vortex-accent transition-all drop-shadow-md hover:scale-110 tracking-wide font-bold" href="#features" onclick="handleNavClick(event, 'features')">Особенности</a>
+<div class="w-3/4 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-50"></div>
+<a class="text-2xl font-semibold hover:text-vortex-accent transition-all drop-shadow-md hover:scale-110 tracking-wide font-bold" href="#specs" onclick="handleNavClick(event, 'specs')">Характеристики</a>
+<div class="w-3/4 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-50"></div>
+<a class="text-2xl font-semibold hover:text-vortex-accent transition-all drop-shadow-md hover:scale-110 tracking-wide font-bold" href="#gallery" onclick="handleNavClick(event, 'gallery')">Галерея</a>
+<div class="w-3/4 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-50"></div>
+</div>
+<script defer="">
+function toggleMobileMenu() {
+  const menu = document.getElementById("mobile-menu");
+  if (!menu) return;
+  const isOpen = menu.classList.contains("scale-100");
+
+  menu.classList.toggle("scale-100", !isOpen);
+  menu.classList.toggle("scale-0", isOpen);
+  menu.classList.toggle("opacity-100", !isOpen);
+  menu.classList.toggle("opacity-0", isOpen);
+}
+</script>
+<script>
+function handleNavClick(event, sectionId) {
+  event.preventDefault();
+
+  const target = document.getElementById(sectionId);
+  if (target) {
+    target.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  const menu = document.getElementById('mobile-menu');
+  if (menu && menu.classList.contains('scale-100')) {
+    menu.classList.remove('scale-100', 'opacity-100');
+    menu.classList.add('scale-0', 'opacity-0');
+  }
+
+  if (event.target && typeof event.target.blur === 'function') {
+    event.target.blur();
+  }
+}
+</script>
+<script>
+window.addEventListener('load', () => {
+  const preloader = document.getElementById('preloader');
+  if (preloader) {
+    preloader.classList.add('opacity-0');
+    setTimeout(() => {
+      preloader.remove();
+    }, 700);
+  }
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    const preloader = document.getElementById("preloader");
+    if (preloader) {
+      preloader.style.opacity = "0";
+      setTimeout(() => preloader.remove(), 700);
+    }
+  }, 3000);
+});
+</script>
+<!-- Бургер-фон + меню -->
+<div class="fixed inset-0 z-[9998] hidden md:hidden bg-black/70 backdrop-blur-md" id="mobile-overlay" onclick="closeMobileMenu()">
 </div>
 <script>
   document.getElementById("order-form").addEventListener("submit", function (e) {
@@ -853,14 +932,14 @@ function toggleMobileMenu() {
 
     const name = document.getElementById("name").value;
     const phone = document.getElementById("phone").value;
-    const email = document.getElementById("email").value;
+    const telegram = document.getElementById("telegram").value;
     const model = document.getElementById("modelSelect").value;
 
     const message = `
 📦 <b>Новый заказ с сайта</b>
 👤 Имя: ${name}
 📞 Телефон: ${phone}
-✉️ Email: ${email}
+✉️ Telegram: ${telegram}
 🪑 Модель: ${model}
     `;
 
@@ -877,7 +956,7 @@ function toggleMobileMenu() {
     })
     .then(response => {
       if (response.ok) {
-        alert("✅ Заявка отправлена! Мы свяжемся с вами.");
+        document.getElementById("confirmation-modal").classList.remove("hidden");
         document.getElementById("order-form").reset();
         submitButton.textContent = "Отправлено (ждите...)";
         setTimeout(() => {
@@ -898,6 +977,15 @@ function toggleMobileMenu() {
     });
   });
 </script>
-
+<div class="fixed inset-0 z-[99999] bg-black/80 backdrop-blur-sm flex items-center justify-center hidden" id="confirmation-modal">
+<div class="bg-[#121212] text-white rounded-2xl p-8 shadow-2xl text-center max-w-md mx-4">
+<h2 class="text-2xl font-bold mb-4">Ваш заказ оформлен</h2>
+<p class="mb-2">В ближайшее время с вами свяжется наш менеджер.</p>
+<p class="text-sm text-gray-400">Рады, что вы выбрали нас!</p>
+<button class="mt-6 px-6 py-2 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full text-black font-semibold transition-all duration-300 ease-in-out hover:shadow-[0_0_12px_2px_rgba(0,255,255,0.7)] hover:-translate-y-1" onclick="document.getElementById('confirmation-modal').classList.add('hidden')">
+      Закрыть
+    </button>
+</div>
+</div>
 </body>
 </html>
