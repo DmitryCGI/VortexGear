@@ -390,7 +390,7 @@ function toggleMobileMenu() {
         </p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<div class="bg-[#121212] p-6 rounded-xl shadow-md feature-card" id="modelDisplay">
+<div class="bg-[#121212] p-6 rounded-xl shadow-md feature-card text-center flex flex-col items-center" id="modelDisplay">
 <div class="w-12 h-12 bg-vortex-primary/10 rounded-lg flex items-center justify-center mb-4" style="background: linear-gradient(to right, #007cf0, #00f2c3);">
 <i class="fas fa-tachometer-alt text-white"></i>
 </div>
@@ -399,7 +399,7 @@ function toggleMobileMenu() {
             Регулируемая высота и угол наклона для идеальной посадки во время длительных игровых сессий.
           </p>
 </div>
-<div class="bg-[#121212] p-6 rounded-xl shadow-md feature-card">
+<div class="bg-[#121212] p-6 rounded-xl shadow-md feature-card text-center flex flex-col items-center">
 <div class="w-12 h-12 bg-vortex-primary/10 rounded-lg flex items-center justify-center mb-4" style="background: linear-gradient(to right, #007cf0, #00f2c3);">
 <i class="fas fa-sliders-h text-white"></i>
 </div>
@@ -408,7 +408,7 @@ function toggleMobileMenu() {
             Встроенные USB-порты, держатели для наушников и кабельные каналы для идеального порядка.
           </p>
 </div>
-<div class="bg-[#121212] p-6 rounded-xl shadow-md feature-card">
+<div class="bg-[#121212] p-6 rounded-xl shadow-md feature-card text-center flex flex-col items-center">
 <div class="w-12 h-12 bg-vortex-primary/10 rounded-lg flex items-center justify-center mb-4" style="background: linear-gradient(to right, #007cf0, #00f2c3);">
 <i class="fas fa-shield-alt text-white"></i>
 </div>
@@ -755,7 +755,6 @@ function toggleMobileMenu() {
 <a class="text-gray-400 hover:text-white transition-colors" href="#"><i class="fab fa-vk"></i></a>
 <a class="text-gray-400 hover:text-white transition-colors" href="#"><i class="fab fa-telegram"></i></a>
 <a class="text-gray-400 hover:text-white transition-colors" href="#"><i class="fab fa-youtube"></i></a>
-
 </div>
 </div>
 </div>
@@ -776,10 +775,10 @@ function toggleMobileMenu() {
 <div class="max-w-xs w-full">
 <h3 class="text-white font-bold text-lg mb-4">Контакты</h3>
 <ul class="space-y-2">
-<li class="flex items-center justify-center"><i class="fas fa-phone-alt mr-2"></i><span>+380 (66)
-                  911-80-97</span></li>
-<li class="flex items-center justify-center"><i class="fas fa-phone-alt mr-2"></i><span>+380 (66)
-                  803-96-35</span></li>
+<li class="flex items-center justify-center"><i class="fas fa-phone-alt mr-2"></i><span><a href="tel:+380669118097">+380 (66)
+                  911-80-97</a></span></li>
+<li class="flex items-center justify-center"><i class="fas fa-phone-alt mr-2"></i><span><a href="tel:+380668039635">+380 (66)
+                  803-96-35</a></span></li>
 <li class="flex items-center justify-center"><i class="fas fa-envelope mr-2"></i><span>info@vortexgear.ua</span></li>
 <li class="flex items-center justify-center"><i class="fas fa-map-marker-alt mr-2"></i><span>Харків</span>
 </li>
@@ -987,5 +986,46 @@ document.addEventListener("DOMContentLoaded", () => {
     </button>
 </div>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const phoneInput = document.getElementById("phone");
+
+  function validatePhone() {
+    const value = phoneInput.value.trim();
+    const startsWithZero = value.length >= 1 && value[0] === "0";
+    const validLength = value.length === 10;
+    const digitsOnly = /^\d*$/.test(value);
+
+    if (!startsWithZero && value.length > 0) {
+      phoneInput.setCustomValidity("Номер должен начинаться с 0");
+      phoneInput.classList.add("border-red-500", "focus:ring-red-500");
+      phoneInput.classList.remove("focus:ring-vortex-primary");
+    } else if (!digitsOnly) {
+      phoneInput.setCustomValidity("Допустимы только цифры");
+      phoneInput.classList.add("border-red-500", "focus:ring-red-500");
+      phoneInput.classList.remove("focus:ring-vortex-primary");
+    } else if (value.length > 0 && value.length !== 10) {
+      phoneInput.setCustomValidity("Номер должен содержать ровно 10 цифр");
+      phoneInput.classList.add("border-red-500", "focus:ring-red-500");
+      phoneInput.classList.remove("focus:ring-vortex-primary");
+    } else {
+      phoneInput.setCustomValidity("");
+      phoneInput.classList.remove("border-red-500", "focus:ring-red-500");
+      phoneInput.classList.add("focus:ring-vortex-primary");
+    }
+
+    phoneInput.reportValidity();
+  }
+
+  phoneInput.addEventListener("input", validatePhone);
+
+  document.getElementById("order-form").addEventListener("submit", function (e) {
+    validatePhone();
+    if (!phoneInput.checkValidity()) {
+      e.preventDefault();
+    }
+  });
+});
+</script>
 </body>
 </html>
