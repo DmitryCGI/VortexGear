@@ -200,21 +200,22 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Vortex Gear</title>
   <base target="_self" />
-  <script defer="" src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@preline/preline@2.0.0/dist/preline.min.js">
-    function toggleMobileMenu() {
-      const menu = document.getElementById("mobile-menu");
-      const isOpen = !menu.classList.contains("translate-x-[110%]");
-      menu.classList.toggle("translate-x-[110%]");
-      menu.classList.toggle("translate-x-0");
-
-      if (!isOpen) {
-        menu.classList.add("shadow-xl", "backdrop-blur-md");
-      } else {
-        menu.classList.remove("shadow-xl", "backdrop-blur-md");
+ <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@preline/preline@2.0.0/dist/preline.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'vortex-primary': '#2563eb',
+            'vortex-accent': '#3b82f6',
+            'vortex-dark': '#1e293b',
+          }
+        }
       }
     }
-
   </script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <script>
@@ -1001,7 +1002,7 @@
           setTimeout(() => {
             preloader.remove();
           }, 700); // Плавное исчезновение
-        }, 3500); // Прелоадер виден 2 секунды
+        }, 1500); // Прелоадер виден 2 секунды
       }
     });
   </script>
