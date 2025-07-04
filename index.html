@@ -200,10 +200,10 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Vortex Gear</title>
   <base target="_self" />
- <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/@preline/preline@2.0.0/dist/preline.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-<script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@preline/preline@2.0.0/dist/preline.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
@@ -217,7 +217,6 @@
       }
     }
   </script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -324,12 +323,30 @@
       animation: menu-hide 0.5s ease-in forwards;
     }
   </style>
-  <link href="photo/favicon.ico" rel="icon" type="image/x-icon" />
+  <link href="photo/icon.ico" rel="icon" type="image/x-icon" />
+  <style>
+    .custom-arrow-select {
+      background-color: #121212;
+      color: white;
+    }
+  </style>
+  <style>
+    .rotate-180 {
+      transform: rotate(180deg) !important;
+    }
+  </style>
+  <style>
+    .custom-select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+  </style>
 </head>
 <!-- Priority Preloader -->
 <div id="preloader"
   style="position:fixed; inset:0; background:#0a0a0a; z-index:999999; display:flex; align-items:center; justify-content:center; transition:opacity 0.7s;">
-  <img alt="Vortex Logo" src="photo/vortex_logo.png"
+  <img alt="Vortex Logo" src="photo/logo.png"
     style="width: 130px; height: 130px; animation: pulse 1.5s ease-in-out infinite;" />
 </div>
 <style>
@@ -361,7 +378,7 @@
           <div class="flex justify-between h-16 items-center">
             <div class="flex items-center">
               <a class="flex items-center" href="#top" onclick="handleNavClick(event, 'top')">
-                <img alt="Vortex Gear Logo" class="h-10 w-auto" src="photo/vortex_logo.png" />
+                <img alt="Vortex Gear Logo" class="h-10 w-auto" src="photo/logo.png" />
                 <span class="ml-2 text-xl font-bold text-white"><span
                     class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent font-bold">Vortex
                     Gear</span></span>
@@ -516,7 +533,7 @@
                 </ul>
               </div>
               <div>
-                <h3 class="text-xl font-bold text-white mb-2">Вага</h3> 
+                <h3 class="text-xl font-bold text-white mb-2">Вага</h3>
                 <ul class="list-disc list-inside text-gray-300 space-y-2">
                   <li>50 кг (максимальне навантаження 180 кг)</li>
                 </ul>
@@ -653,7 +670,8 @@
             <p class="text-lg mb-8 opacity-90">
               Залиште заявку і наш менеджер зв'яжеться з вами для уточнення деталей замовлення та умов доставки.
             </p>
-            <div class="p-6 mb-8 bg-cover bg-center transition-all duration-300 glow-animated" id="modelCard">
+            <div class="p-6 mb-8 bg-cover bg-center transition-all duration-300 glow-animated glow-box" id="modelCard"
+              style="background-image: url('backgrounds/bg-s.png'); --glow-color: rgba(0, 183, 255, 0.8); border-radius: 15px;">
               <div class="inner-content flex flex-col items-center text-center space-y-1">
                 <span class="font-bold text-3xl" id="selectedModel">Black Titan S</span>
                 <span class="text-gray-400 text-1xl" id="selectedSize">120×75 см</span>
@@ -665,6 +683,7 @@
               <span>Безкоштовна доставка по всій Україні</span>
             </div>
           </div>
+
           <!-- Правая колонка -->
           <div class="bg-[#121212] p-6 md:p-8 rounded-xl shadow-lg">
             <h3 class="text-2xl font-bold text-white mb-6">Оформити замовлення</h3>
@@ -673,33 +692,54 @@
                 <label class="block text-sm font-medium text-gray-300 mb-1" for="name">Ваше Ім'я</label>
                 <input
                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]"
-                  id="name" required="" type="text" />
+                  id="name" placeholder="Ім’я" required type="text" />
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-300 mb-1" for="phone">Номер телефону</label>
                 <input
                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]"
-                  id="phone" required="" type="tel" />
+                  id="phone" placeholder="(0XX) XXX-XX-XX" required type="tel" />
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-300 mb-1" for="Telegram">Telegram</label>
                 <input
                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]"
-                  id="telegram" name="telegram" placeholder="@yourusername" required="" type="text" />
+                  id="telegram" name="telegram" placeholder="@yourusername" required type="text" />
               </div>
+
+
+              <!-- Выбор модели -->
               <div>
-                <label class="block text-sm font-medium text-gray-300 mb-1" for="model">Модель</label>
-                <select
-                  class="w-full px-4 py-2 border border-gray-300 rounded-md bg-[#121212] text-white focus:ring-2 focus:ring-vortex-primary focus:border-transparent"
-                  id="modelSelect">
-                  <option data-bg="backgrounds/bg-s.png" data-price="14000" data-pulse="0.8" data-radius="15px"
-                    data-rank="s" data-size="120×75 см">Black Titan S</option>
-                  <option data-bg="backgrounds/bg-m.png" data-price="16000" data-pulse="0.8" data-radius="15px"
-                    data-rank="m" data-size="140×75 см">Black Titan M</option>
-                  <option data-bg="backgrounds/bg-l.png" data-price="18000" data-pulse="0.8" data-radius="15px"
-                    data-rank="l" data-size="160×85 см">Black Titan L</option>
-                </select>
+                <label class="block text-sm font-medium text-gray-300 mb-1">Модель</label>
+                <div class="relative w-full">
+                  <button type="button"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md bg-[#121212] text-white text-left flex justify-between items-center"
+                    onclick="toggleModelDropdown()">
+                    <span id="selectedModelDropdown">Black Titan S</span>
+                    <svg class="ml-2 transition-transform duration-300" fill="white" height="26" id="arrowIcon"
+                      viewBox="0 0 20 20" width="26">
+                      <path
+                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.25 4.38a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z">
+                      </path>
+                    </svg>
+                  </button>
+
+                  <!-- dropdown: теперь занимает место в потоке -->
+                  <ul id="modelDropdownList"
+                    class="transition-all duration-300 ease-in-out overflow-hidden max-h-0 opacity-0 bg-[#121212] border border-gray-300 rounded-md"><div class="absolute inset-0 z-0 rounded-2xl pointer-events-none glow-border"></div>
+                    <li onclick="selectModel(this)" data-name="Black Titan S" data-price="14000" data-size="120×75 см"
+                      data-bg="backgrounds/bg-s.png" data-radius="15px" data-rank="s" data-pulse="0.8"
+                      class="px-4 py-2 cursor-pointer hover:bg-[#1e1e1e]">Black Titan S</li>
+                    <li onclick="selectModel(this)" data-name="Black Titan M" data-price="16000" data-size="140×75 см"
+                      data-bg="backgrounds/bg-m.png" data-radius="15px" data-rank="m" data-pulse="0.8"
+                      class="px-4 py-2 cursor-pointer hover:bg-[#1e1e1e]">Black Titan M</li>
+                    <li onclick="selectModel(this)" data-name="Black Titan L" data-price="18000" data-size="160×85 см"
+                      data-bg="backgrounds/bg-l.png" data-radius="15px" data-rank="l" data-pulse="0.8"
+                      class="px-4 py-2 cursor-pointer hover:bg-[#1e1e1e]">Black Titan L</li>
+                  </ul>
+                </div>
               </div>
+
               <button class="custom-order-btn form-wide" type="submit">
                 Відправити заявку
               </button>
@@ -707,40 +747,17 @@
           </div>
         </div>
       </div>
-      <script>
-        const modelSelect = document.getElementById("modelSelect");
-        const modelName = document.getElementById("selectedModel");
-        const modelPrice = document.getElementById("selectedPrice");
-        const modelSize = document.getElementById("selectedSize");
-        const modelCard = document.getElementById("modelCard");
-
-        function updateModelInfo() {
-          const selected = modelSelect.options[modelSelect.selectedIndex];
-          const name = selected.textContent;
-          const price = selected.dataset.price;
-          const size = selected.dataset.size;
-          const bg = selected.dataset.bg;
-          const radius = selected.dataset.radius || "16px";
-          const rank = selected.dataset.rank || "s";
-          const pulse = parseFloat(selected.dataset.pulse || "0.5");
-
-          const glowColors = {
-            s: `rgba(0, 183, 255, ${pulse})`,
-            m: `rgba(255, 153, 0, ${pulse})`,
-            l: `rgba(255, 50, 50, ${pulse})`
-          };
-
-          modelName.textContent = name;
-          modelSize.textContent = size;
-          modelPrice.textContent = new Intl.NumberFormat("ru-RU").format(price) + " ₴";
-
-          modelCard.style.backgroundImage = `url('${bg}')`;
-          modelCard.style.setProperty("--glow-color", glowColors[rank]);
-          modelCard.style.borderRadius = radius;
+      <style>
+        #arrowIcon.rotate-180 {
+          transform: rotate(180deg);
         }
 
-        modelSelect.addEventListener("change", updateModelInfo);
-        updateModelInfo();
+        #modelDropdownList {
+          transition: all 0.3s ease;
+        }
+      </style>
+      <script>
+
 
         function toggleMobileMenu() {
           const menu = document.getElementById("mobile-menu");
@@ -876,7 +893,8 @@
             </div>
           </div>
         </div>
-        <div class="w-3/4 mx-auto h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-50 my-8"></div>
+        <div class="w-3/4 mx-auto h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-50 my-8">
+        </div>
         <div class="pt-3 text-center text-gray-500">
           <p>© 2025 Vortex Gear. Усі права захищені.</p>
         </div>
@@ -952,7 +970,7 @@
       onclick="toggleMobileMenu()">×</button>
     <!-- Menu items -->
     <a class="text-2xl font-semibold hover:text-vortex-accent transition-all drop-shadow-md hover:scale-110 tracking-wide font-bold"
-      href="#features" onclick="handleNavClick(event, 'features')">Особенности</a>
+      href="#features" onclick="handleNavClick(event, 'features')">Особливості</a>
     <div class="w-3/4 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-50"></div>
     <a class="text-2xl font-semibold hover:text-vortex-accent transition-all drop-shadow-md hover:scale-110 tracking-wide font-bold"
       href="#specs" onclick="handleNavClick(event, 'specs')">Характеристики</a>
@@ -1001,7 +1019,7 @@
           preloader.style.opacity = "0";
           setTimeout(() => {
             preloader.remove();
-          }, 700); // Плавное исчезновение
+          }, 200); // Плавное исчезновение
         }, 1500); // Прелоадер виден 2 секунды
       }
     });
@@ -1016,7 +1034,7 @@
 
       const submitButton = this.querySelector("button[type='submit']");
       submitButton.disabled = true;
-      submitButton.textContent = "Отправка...";
+      submitButton.textContent = "Відправлення...";
 
       const token = "8106374286:AAFw70LTQEFCRUsSHPWhTVBbIIvA0IvdMeQ";
       const chatId = "559575493";
@@ -1024,7 +1042,7 @@
       const name = document.getElementById("name").value;
       const phone = document.getElementById("phone").value;
       const telegram = document.getElementById("telegram").value;
-      const model = document.getElementById("modelSelect").value;
+      const model = document.getElementById("selectedModelDropdown").textContent;
 
       const message = `
 📦 <b>Новый заказ с сайта</b>
@@ -1049,35 +1067,36 @@
           if (response.ok) {
             document.getElementById("confirmation-modal").classList.remove("hidden");
             document.getElementById("order-form").reset();
-            submitButton.textContent = "Отправлено (ждите...)";
+            submitButton.textContent = "Відправлено (чекайте...)";
             setTimeout(() => {
               submitButton.disabled = false;
-              submitButton.textContent = "Отправить заявку";
+              submitButton.textContent = "Надіслати заявку";
             }, 10000); // 10 секунд
           } else {
-            alert("❌ Ошибка при отправке. Попробуйте ещё раз.");
+            alert("❌ Помилка під час надсилання. Спробуйте ще раз.");
             submitButton.disabled = false;
-            submitButton.textContent = "Отправить заявку";
+            submitButton.textContent = "Надіслати заявку";
           }
         })
         .catch(error => {
           console.error("Ошибка:", error);
-          alert("❌ Ошибка при подключении к Telegram.");
+          alert("❌ Помилка під час підключення до Telegram.");
           submitButton.disabled = false;
-          submitButton.textContent = "Отправить заявку";
+          submitButton.textContent = "Надіслати заявку";
         });
     });
   </script>
   <div class="fixed inset-0 z-[99999] bg-black/80 backdrop-blur-sm flex items-center justify-center hidden"
     id="confirmation-modal">
     <div class="bg-[#121212] text-white rounded-2xl p-8 shadow-2xl text-center max-w-md mx-4">
-      <h2 class="text-2xl font-bold mb-4">Ваш заказ оформлен</h2>
-      <p class="mb-2">В ближайшее время с вами свяжется наш менеджер.</p>
-      <p class="text-sm text-gray-400">Рады, что вы выбрали нас!</p>
+      <h2 class="text-2xl font-bold mb-4"><span class="inline-flex items-center justify-center gap-2">🎉 <span>Ваше
+            замовлення оформлене</span> 🎉</span></h2>
+      <p class="mb-2">Найближчим часом із вами зв'яжеться наш менеджер.</p>
+      <p class="text-sm text-gray-400"><span class="inline-block">💙</span>Раді, що ви обрали нас! <span class="inline-block">💛</span></p>
       <button
-        class="mt-6 px-6 py-2 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full text-black font-semibold transition-all duration-300 ease-in-out hover:shadow-[0_0_12px_2px_rgba(0,255,255,0.7)] hover:-translate-y-1"
+        class="mt-6 px-24 py-2 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full text-black font-semibold transition-all duration-300 ease-in-out hover:shadow-[0_0_12px_2px_rgba(0,255,255,0.7)] hover:-translate-y-1"
         onclick="document.getElementById('confirmation-modal').classList.add('hidden')">
-        Закрыть
+        Закрити
       </button>
     </div>
   </div>
@@ -1092,15 +1111,15 @@
         const digitsOnly = /^\d*$/.test(value);
 
         if (!startsWithZero && value.length > 0) {
-          phoneInput.setCustomValidity("Номер должен начинаться с 0");
+          phoneInput.setCustomValidity("Номер має починатися з 0");
           phoneInput.classList.add("border-red-500", "focus:ring-red-500");
           phoneInput.classList.remove("focus:ring-vortex-primary");
         } else if (!digitsOnly) {
-          phoneInput.setCustomValidity("Допустимы только цифры");
+          phoneInput.setCustomValidity("Допустимі тільки цифри");
           phoneInput.classList.add("border-red-500", "focus:ring-red-500");
           phoneInput.classList.remove("focus:ring-vortex-primary");
         } else if (value.length > 0 && value.length !== 10) {
-          phoneInput.setCustomValidity("Номер должен содержать ровно 10 цифр");
+          phoneInput.setCustomValidity("Номер повинен містити рівно 10 цифр");
           phoneInput.classList.add("border-red-500", "focus:ring-red-500");
           phoneInput.classList.remove("focus:ring-vortex-primary");
         } else {
@@ -1134,6 +1153,104 @@
         window.scrollTo({ top: 0, left: 0, behavior: "instant" });
       }, 10);
     });
+  </script>
+  <script>
+    function toggleModelDropdown() {
+      const dropdown = document.getElementById("modelDropdownList");
+      const arrow = document.getElementById("arrowIcon");
+      const isOpen = dropdown.style.maxHeight !== "0px" && dropdown.style.maxHeight !== "";
+
+      if (isOpen) {
+        dropdown.style.maxHeight = "0";
+        dropdown.style.opacity = "0";
+        arrow.classList.remove("rotate-180");
+      } else {
+        dropdown.style.maxHeight = dropdown.scrollHeight + "px";
+        dropdown.style.opacity = "1";
+        arrow.classList.add("rotate-180");
+      }
+    }
+
+    function selectModel(el) {
+      const name = el.dataset.name;
+      const price = el.dataset.price;
+      const size = el.dataset.size;
+      const bg = el.dataset.bg;
+      const radius = el.dataset.radius;
+      const rank = el.dataset.rank;
+      const pulse = parseFloat(el.dataset.pulse);
+
+      const glowColors = {
+        s: `rgba(0, 183, 255, ${pulse})`,
+        m: `rgba(255, 153, 0, ${pulse})`,
+        l: `rgba(255, 50, 50, ${pulse})`
+      };
+
+      document.getElementById("selectedModel").textContent = name;
+      document.getElementById("selectedModelDropdown").textContent = name;
+      document.getElementById("selectedSize").textContent = size;
+      document.getElementById("selectedPrice").textContent = new Intl.NumberFormat("ru-RU").format(price) + " ₴";
+
+      const card = document.getElementById("modelCard");
+      card.style.backgroundImage = `url('${bg}')`;
+      card.style.setProperty("--glow-color", glowColors[rank]);
+      card.style.borderRadius = radius;
+
+      toggleModelDropdown();
+    }
+
+  </script>
+
+  <style>
+    #modelDropdownList li {
+      transition: opacity 0.4s ease;
+    }
+
+    #arrowIcon.rotate-180 {
+      transform: rotate(180deg);
+    }
+  </style>
+  </section>
+  <script>
+    (function () {
+      const select = document.getElementById("modelSelect");
+      const arrow = document.getElementById("customArrow");
+
+      if (!select || !arrow) return;
+
+      let isOpen = false;
+
+      select.addEventListener("click", () => {
+        isOpen = !isOpen;
+        arrow.classList.toggle("rotate-180", isOpen);
+      });
+
+      select.addEventListener("blur", () => {
+        isOpen = false;
+        arrow.classList.remove("rotate-180");
+      });
+    })();
+
+    function toggleModelDropdown() {
+      const dropdown = document.getElementById("modelDropdownList");
+      const arrow = document.getElementById("arrowIcon");
+
+      const isOpen = dropdown.classList.contains("max-h-[0px]") || dropdown.style.maxHeight === "0px" || dropdown.style.maxHeight === "";
+
+      if (isOpen) {
+        dropdown.style.maxHeight = dropdown.scrollHeight + "px";
+        dropdown.style.opacity = "1";
+        arrow.classList.add("rotate-180");
+      } else {
+        dropdown.style.maxHeight = "0";
+        dropdown.style.opacity = "0";
+        arrow.classList.remove("rotate-180");
+      }
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+
+    });
+
   </script>
 </body>
 
