@@ -1016,18 +1016,18 @@
       const model = document.getElementById("selectedModelDropdown").textContent;
 
       try {
-        const response = await fetch("https://vortex-2ewn6nx8a-dmitrycgis-projects.vercel.app/api/send", {
+        const response = await fetch("https://vortex-api.vercel.app/api/send", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({ name, phone, telegram, model })
         });
-
+        
 
         const data = await response.json();
         if (data.success) {
-          showConfirmationModal();
+          showConfirmationModal(); // если используешь модальное окно
           document.getElementById("order-form").reset();
           submitButton.textContent = "Відправлено (чекайте...)";
           setTimeout(() => {
@@ -1045,6 +1045,7 @@
       }
     });
   </script>
+
 
   <script>
     // Отключаем авто-восстановление скролла браузером
