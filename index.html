@@ -326,9 +326,9 @@
       -moz-appearance: none;
     }
   </style>
-<link as="image" href="backgrounds/model-s.jpg" rel="preload"/>
-<link as="image" href="backgrounds/model-m.jpg" rel="preload"/>
-<link as="image" href="backgrounds/model-l.jpg" rel="preload"/>
+<link as="image" href="backgrounds/bg-s.png" rel="preload"/>
+<link as="image" href="backgrounds/bg-m.png" rel="preload"/>
+<link as="image" href="backgrounds/bg-l.png" rel="preload"/>
 <style>
   @media (max-width: 768px) {
     #modelCard {
@@ -942,14 +942,14 @@ document.getElementById("order-form").addEventListener("submit", async function 
   const model = document.getElementById("selectedModelDropdown").textContent;
 
   try {
-    const response = await fetch("https://vortex-p2utavyvt-dmitrycgis-projects.vercel.app/api/send", {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ name, phone, telegram, model })
-    });
+    const response = await fetch("https://vortex-29ysyw1q7-dmitrycgis-projects.vercel.app/api/send", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({ name, phone, telegram, model })
+});
+
 
     const data = await response.json();
     if (data.success) {
