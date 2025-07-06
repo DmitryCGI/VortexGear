@@ -1006,9 +1006,11 @@
   <script>
     document.getElementById("order-form").addEventListener("submit", async function (e) {
       e.preventDefault();
+
       const btn = this.querySelector("button[type='submit']");
       btn.disabled = true;
       btn.textContent = "Відправлення...";
+
       const form = new FormData(this);
       const payload = {
         name: form.get("name"),
@@ -1016,27 +1018,34 @@
         telegram: form.get("telegram"),
         model: form.get("model")
       };
+
       try {
-        const resp = await fetch("https:/vortex-hmzich097-dmitrycgis-projects.vercel.app/api/send", {
+        const resp = await fetch("https://vortex-hmzich097-dmitrycgis-projects.vercel.app/api/send", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json"
+          },
           body: JSON.stringify(payload)
         });
+
         const data = await resp.json();
+
         if (data.success) {
           alert("✅ Надіслано!");
           this.reset();
         } else {
-          throw new Error(data.error || "Error");
+          throw new Error(data.error || "Помилка при надсиланні");
         }
       } catch (err) {
-        console.error(err); alert("Помилка...");
+        console.error(err);
+        alert("❌ Помилка під час надсилання.");
       } finally {
         btn.disabled = false;
         btn.textContent = "Надіслати заявку";
       }
     });
   </script>
+
 
 
 
