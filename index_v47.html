@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+
+<html lang="ua">
+<head>
+<style>
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .parallax {
+      background-attachment: fixed;
+    }
+
+    .custom-order-btn.form-wide {
+      width: 100%;
+      display: block;
+      text-align: center;
+    }
+
+    .blur-fade {
+      backdrop-filter: blur(8px);
+      background-color: rgba(8, 8, 8, 0.5);
+      -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+    }
+
+
+    .custom-order-btn {
+      padding: 0.75rem 2rem;
+      color: rgba(0, 0, 0, 0.7);
+      font-weight: 600;
+      border-radius: 9999px;
+      transition: all 0.2s ease-in-out;
+      background: linear-gradient(to right, #007cf0, #00f2c3);
+      will-change: transform, box-shadow;
+    }
+
+    .custom-order-btn:hover {
+      box-shadow: 0 0 12px 1px rgb(0, 238, 255), 0 2px 10px rgba(0, 0, 0, 0.2);
+      transform: translateY(-4px);
+    }
+
+
+    .custom-order-btn.header-size {
+      padding: 0.6rem 1.4rem;
+      font-size: 1rem;
+    }
+
+
+    .gradient-outline-btn {
+      position: relative;
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      font-weight: 500;
+      border-radius: 9999px;
+      background: transparent;
+      color: white;
+      z-index: 0;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .gradient-outline-btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 9999px;
+      padding: 2px;
+      background: linear-gradient(to right, #007cf0, #00f2c3);
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      z-index: -1;
+    }
+
+    .gradient-outline-btn:hover {
+      box-shadow: 0 0 12px 2px rgb(0, 238, 255);
+      transform: translateY(-4px);
+    }
+
+    .gradient-text {
+      background: linear-gradient(to right, #007cf0, #00f2c3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .feature-card {
+      transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .feature-card:hover {
+      box-shadow: 0 0 16px 4px rgb(0, 238, 255);
+    }
+
+    .feature-card {
+      transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+
+    .feature-card:hover {
+      box-shadow: 0 0 16px 4px rgb(0, 238, 255);
+      transform: translateY(-4px);
+    }
+
+
+    @keyframes glowPulse {
+      0% {
+        box-shadow: 0 0 10px var(--glow-color);
+      }
+
+      50% {
+        box-shadow: 0 0 20px var(--glow-color), 0 0 30px var(--glow-color);
+      }
+
+      100% {
+        box-shadow: 0 0 10px var(--glow-color);
+      }
+    }
+
+    .glow-border::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 1rem;
+      /* соответствует rounded-2xl */
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.6),
+        0 0 40px rgba(0, 255, 255, 0.4),
+        0 0 60px rgba(0, 255, 255, 0.2);
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseGlow {
+
+      0%,
+      100% {
+        opacity: 0.8;
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.6),
+          0 0 3px rgba(0, 255, 255, 0.4),
+          0 0 5px rgba(0, 255, 255, 0.2);
+      }
+
+      50% {
+        opacity: 1;
+        box-shadow: 0 0 25px rgba(0, 255, 255, 0.8),
+          0 0 5px rgba(0, 255, 255, 0.6),
+          0 0 7px rgba(0, 255, 255, 0.3);
+      }
+    }
+
+    .glow-animated {
+      animation: glowPulse var(--glow-speed, 2s) infinite ease-in-out;
+    }
+
+
+    .border-b-gradient {
+      border-image: linear-gradient(to right, #00ffe1, #007cf0);
+      border-image-slice: 1;
+    }
+
+    @supports (-webkit-touch-callout: none) {
+      #modelCard::after {
+        backdrop-filter: blur(1.5px);
+        -webkit-backdrop-filter: blur(1.5px);
+      }
+    }
+  </style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vortex Gear</title>
+<base target="_self"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@preline/preline@2.0.0/dist/preline.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'vortex-primary': '#2563eb',
+            'vortex-accent': '#3b82f6',
+            'vortex-dark': '#1e293b',
+          }
+        }
+      }
+    }
+  </script>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'vortex-primary': '#2563eb',
+            'vortex-accent': '#3b82f6',
+            'vortex-dark': '#1e293b',
+          }
+        }
+      }
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById("mobile-menu");
+      const isOpen = !menu.classList.contains("translate-x-[110%]");
+      menu.classList.toggle("translate-x-[110%]");
+      menu.classList.toggle("translate-x-0");
+
+      if (!isOpen) {
+        menu.classList.add("shadow-xl", "backdrop-blur-md");
+      } else {
+        menu.classList.remove("shadow-xl", "backdrop-blur-md");
+      }
+    }
+
+  </script>
+<style>
+    @media (max-width: 920px) {
+      .order-btn-wrapper {
+        display: none;
+      }
+    }
+
+    @supports (-webkit-touch-callout: none) {
+      #modelCard::after {
+        backdrop-filter: blur(1.5px);
+        -webkit-backdrop-filter: blur(1.5px);
+      }
+    }
+  </style>
+<style>
+    body {
+      background-color: #080808;
+      color: white;
+    }
+  </style>
+<!-- Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-BL0MH2146Q"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-BL0MH2146Q');
+  </script>
+<style>
+    @keyframes fade-in {
+      0% {
+        opacity: 0;
+        transform: scaleX(0.5);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scaleX(1);
+      }
+    }
+
+    .animate-fade-in {
+      animation: fade-in 0.4s ease forwards;
+    }
+  </style>
+<style>
+    @keyframes menu-reveal {
+      0% {
+        clip-path: circle(0% at 50% 50%);
+        opacity: 0;
+      }
+
+      100% {
+        clip-path: circle(150% at 50% 50%);
+        opacity: 1;
+      }
+    }
+
+    @keyframes menu-hide {
+      0% {
+        clip-path: circle(150% at 50% 50%);
+        opacity: 1;
+      }
+
+      100% {
+        clip-path: circle(0% at 50% 50%);
+        opacity: 0;
+      }
+    }
+
+    #mobile-menu.animating-in {
+      animation: menu-reveal 0.6s ease-out forwards;
+    }
+
+    #mobile-menu.animating-out {
+      animation: menu-hide 0.5s ease-in forwards;
+    }
+  </style>
+<link href="photo/icon.ico" rel="icon" type="image/x-icon"/>
+<style>
+    .custom-arrow-select {
+      background-color: #121212;
+      color: white;
+    }
+  </style>
+<style>
+    .rotate-180 {
+      transform: rotate(180deg) !important;
+    }
+  </style>
+<style>
+    .custom-select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+  </style>
+<link as="image" href="backgrounds/bg-s.png" rel="preload"/>
+<link as="image" href="backgrounds/bg-m.png" rel="preload"/>
+<link as="image" href="backgrounds/bg-l.png" rel="preload"/>
+<style>
+    @media (max-width: 768px) {
+      #modelCard {
+        padding-top: 1.25rem !important;
+        /* уменьшить отступ сверху */
+        padding-bottom: 1.25rem !important;
+        min-height: auto !important;
+      }
+
+      #modelCard h3 {
+        font-size: 1.25rem !important;
+        /* уменьшить заголовок */
+      }
+
+      #modelCard p {
+        font-size: 0.875rem !important;
+        /* уменьшить текст */
+      }
+    }
+  </style>
+</head>
+<!-- Priority Preloader -->
+<div id="preloader" style="position:fixed; inset:0; background:#0a0a0a; z-index:999999; display:flex; align-items:center; justify-content:center; transition:opacity 0.7s;">
+<img alt="Vortex Logo" src="photo/logo.png" style="width: 130px; height: 130px; animation: pulse 1.5s ease-in-out infinite;"/>
+</div>
+<style>
+  @keyframes pulse {
+
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+
+    50% {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+  }
+</style>
+<body class="bg-[#080808] text-white transition-colors duration-300 overflow-x-hidden">
+<div class="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat" style="background-color: #080808; background-image: url('photo/vortex_bckg.png'); background-size: cover; background-position: center;">
+</div>
+<div class="relative z-10">
+<div id="top"></div>
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-transparent">
+<div class="blur-fade">
+<nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between h-16 items-center">
+<div class="flex items-center">
+<a class="flex items-center" href="#top" onclick="handleNavClick(event, 'top')">
+<img alt="Vortex Gear Logo" class="h-10 w-auto" src="photo/logo.png"/>
+<span class="ml-2 text-xl font-bold text-white"><span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent font-bold">Vortex
+                    Gear</span></span>
+</a>
+</div>
+<div class="hidden md:flex items-center space-x-16 text-sm lg:text-base">
+<a class="text-white hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-[#007cf0] hover:to-[#00f2c3] font-medium transition-colors" href="#features" onclick="handleNavClick(event, 'features')">Особливості</a>
+<a class="text-white hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-[#007cf0] hover:to-[#00f2c3] font-medium transition-colors" href="#specs" onclick="handleNavClick(event, 'specs')">Характеристики</a>
+<a class="text-white hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-[#007cf0] hover:to-[#00f2c3] font-medium transition-colors" href="#gallery" onclick="handleNavClick(event, 'gallery')">Галерея</a>
+</div>
+<div class="flex items-center">
+<div class="hidden md:block">
+<div class="order-btn-wrapper"><button class="custom-order-btn header-size" onclick="handleNavClick(event, 'order')">
+                    Оформити замовлення
+                  </button></div>
+</div>
+<button class="md:hidden" onclick="toggleMobileMenu()">
+<svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+</div>
+</nav>
+</div>
+</header>
+<!-- Hero Section -->
+<section class="relative -mt-16 pt-14" id="hero">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div class="text-center md:text-left">
+<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+<span class="text-vortex-primary gradient-text">Black Titan</span> - Домінуй у грі
+            </h1>
+<p class="text-lg md:text-xl text-gray-400 mb-8 max-w-lg">
+              Твій надійний сетап починається з правильного столу.
+            </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+<button class="custom-order-btn" onclick="handleNavClick(event, 'order')">
+                Замовити зараз
+              </button>
+<button class="gradient-outline-btn" onclick="handleNavClick(event, 'features')">
+                Дізнатись більше
+              </button>
+</div>
+</div>
+<div class="relative">
+<img alt="Vortex Gear Black Titan" class="rounded-xl shadow-2xl w-full max-w-[720px] mx-auto" src="photo/vortex_table.png"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Section -->
+<section class="py-20 bg-[#0b0b0b]/60 backdrop-blur-md" id="features">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Ігрові переваги</h2>
+<p class="text-lg text-gray-400 max-w-3xl mx-auto">
+            Black Titan - це не про «меблі». Це про владу над простором.
+          </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-[#121212] p-6 rounded-xl shadow-md feature-card text-center flex flex-col items-center" id="modelDisplay">
+<div class="w-12 h-12 bg-vortex-primary/10 rounded-lg flex items-center justify-center mb-4" style="background: linear-gradient(to right, #007cf0, #00f2c3);">
+<i class="fas fa-tachometer-alt text-white"></i>
+</div>
+<h3 class="text-xl font-bold text-white mb-2">Максимальна ергономіка</h3>
+<p class="text-gray-400">
+              Жодних зайвих рухів — лише ідеальна геометрія під твій стиль гри. Ергономіка, яка тримає тебе в тонусі до
+              останнього раунду. Металева конструкція гарантує повну стійкість — нічого не шатається, навіть у
+              найгарячіші моменти.
+            </p>
+</div>
+<div class="bg-[#121212] p-6 rounded-xl shadow-md feature-card text-center flex flex-col items-center">
+<div class="w-12 h-12 bg-vortex-primary/10 rounded-lg flex items-center justify-center mb-4" style="background: linear-gradient(to right, #007cf0, #00f2c3);">
+<i class="fas fa-sliders-h text-white"></i>
+</div>
+<h3 class="text-xl font-bold text-white mb-2">Інтегровані рішення</h3>
+<p class="text-gray-400">
+              USB, тримачі, приховані канали й вбудована кнопка для запуску ПК — усе на своєму місці. Всі дрібниці, які
+              зазвичай дратують, тут — просто не існують.
+            </p>
+</div>
+<div class="bg-[#121212] p-6 rounded-xl shadow-md feature-card text-center flex flex-col items-center">
+<div class="w-12 h-12 bg-vortex-primary/10 rounded-lg flex items-center justify-center mb-4" style="background: linear-gradient(to right, #007cf0, #00f2c3);">
+<i class="fas fa-shield-alt text-white"></i>
+</div>
+<h3 class="text-xl font-bold text-white mb-2">Преміальні матеріали</h3>
+<p class="text-gray-400">
+              ЛДСП з глибокою текстурою вугільного каменю й важкий метал, який не гнеться. Black Titan побудований, як
+              справжній інструмент — надійно, без фальші.
+            </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Specs Section -->
+<section class="py-20" id="specs">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Технічні характеристики</h2>
+<p class="text-lg text-gray-300 max-w-3xl mx-auto">
+            Black Titan - це не про «меблі». Це про владу над простором.
+          </p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div>
+<img alt="Black Titan specifications" class="rounded-xl shadow-lg w-full" src="photo/vortex_top_table.png"/>
+</div>
+<div>
+<div class="space-y-6">
+<div>
+<h3 class="text-xl font-bold text-white mb-2">Матеріали</h3>
+<ul class="list-disc list-inside text-gray-300 space-y-2">
+<li>Стільниця з ЛДСП преміум-класу і стійкі металеві опори з матовим порошковим фарбуванням завтовшки
+                    2 мм.</li>
+</ul>
+</div>
+<div>
+<h3 class="text-xl font-bold text-white mb-2">Розміри</h3>
+<ul class="list-disc list-inside text-gray-300 space-y-2">
+<li>S - 120×75 см</li>
+<li>M - 140×75 см</li>
+<li>L - 160×85 см</li>
+</ul>
+</div>
+<div>
+<h3 class="text-xl font-bold text-white mb-2">Інтеграції</h3>
+<ul class="list-disc list-inside text-gray-300 space-y-2">
+<li>Логотип з RGB-підсвічуванням 16.8 млн кольорів</li>
+<li>4 вбудовані USB порти 3.0</li>
+<li>Вбудована кнопка запуску ПК - прямо в торці столу.</li>
+<li>Гофра для проводів і бокс-органайзер із кріпленням знизу столу.</li>
+<li>Тримач для напоїв</li>
+<li>Кронштейн для навушників</li>
+<li>Регульовані ніжки для компенсації нерівності підлоги</li>
+<li>У стільниці та ніжках передбачені муфти - для легкої збірки без зносу.</li>
+<li>Продуманий виріз позаду столу - для акуратного протягування проводів і монтажу кронштейна.</li>
+<li>Підставка під ПК: жорстке кріплення до стільниці (куточки 5 мм) і мобільність на опорних роликах
+                    зі стопором.</li>
+</ul>
+</div>
+<div>
+<h3 class="text-xl font-bold text-white mb-2">Вага</h3>
+<ul class="list-disc list-inside text-gray-300 space-y-2">
+<li>50 кг (максимальне навантаження 180 кг)</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 3d  -->
+<section class="py-20 bg-[#080808]/60 backdrop-blur-md" id="viewer">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-8">
+          3D Огляд Black Titan
+        </h2>
+<!-- Контейнер с псевдо-рамкой -->
+<div class="flex justify-center">
+<div class="relative rounded-2xl" style="width: 100%; max-width: 2500px; height: 700px;">
+<!-- Светящаяся рамка через before -->
+<div class="absolute inset-0 z-0 rounded-2xl pointer-events-none glow-border"></div>
+<!-- Сам viewer, поверх -->
+<model-viewer alt="Black Titan 3D View" ar="" ar-modes="webxr scene-viewer quick-look" auto-rotate="" camera-controls="" class="relative z-10 rounded-2xl" shadow-intensity="2" shadow-softness="1" src="model/black-titan.glb" style="width: 100%; height: 100%; background-color: #0f0f0f;">
+</model-viewer>
+</div>
+</div>
+</div>
+</section>
+<!-- Gallery Section -->
+<section class="py-20" id="gallery">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Галерея</h2>
+<p class="text-lg text-gray-300 max-w-3xl mx-auto">
+            Black Titan у різних ракурсах і умовах освітлення
+          </p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+<img alt="Black Titan front view" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1470&amp;q=80"/>
+</div>
+<div class="overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+<img alt="Black Titan side view" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1592155931584-901ac15763e3?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1473&amp;q=80"/>
+</div>
+<div class="overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+<img alt="Black Titan with setup" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1546146830-2cca9512c68e?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1480&amp;q=80"/>
+</div>
+<div class="overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+<img alt="Black Titan RGB lighting" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1470&amp;q=80"/>
+</div>
+<div class="overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+<img alt="Black Titan cable management" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1374&amp;q=80"/>
+</div>
+<div class="overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+<img alt="Black Titan professional setup" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1470&amp;q=80"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Reviews Section -->
+<style>
+      #modelCard {
+        position: relative;
+        overflow: hidden;
+        border-radius: 16px;
+        transition: all 0.3s ease;
+      }
+
+      #modelCard::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        z-index: 1;
+        pointer-events: none;
+        box-shadow: 0 0 20px 6px var(--glow-color, rgba(0, 0, 0, 0));
+        opacity: 0.5;
+        animation: glowFloat 2s infinite linear alternate;
+      }
+
+      #modelCard::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+
+      #modelCard>.inner-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      @keyframes glowFloat {
+        from {
+          opacity: 0.4;
+          transform: scale(1);
+        }
+
+        to {
+          opacity: 1;
+          transform: scale(1.015);
+        }
+      }
+
+      @supports (-webkit-touch-callout: none) {
+        #modelCard::after {
+          backdrop-filter: blur(1.5px);
+          -webkit-backdrop-filter: blur(1.5px);
+        }
+      }
+    </style>
+<section class="py-20 bg-[#080808]/60 backdrop-blur-md text-white" id="order">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<!-- Левая колонка -->
+<div>
+<h2 class="text-3xl md:text-4xl font-bold mb-6">Готові до апгрейду вашого ігрового простору?</h2>
+<p class="text-lg mb-8 opacity-90">
+              Залиште заявку і наш менеджер зв'яжеться з вами для уточнення деталей замовлення та умов доставки.
+            </p>
+<div class="p-6 mb-8 bg-cover bg-center transition-all duration-300 glow-animated glow-box" id="modelCard" style="background-image: url('backgrounds/bg-s.png'); --glow-color: rgba(0, 183, 255, 0.8); border-radius: 15px;">
+<div class="inner-content flex flex-col items-center text-center space-y-1">
+<span class="font-bold text-3xl" id="selectedModel">Black Titan S</span>
+<span class="text-gray-400 text-1xl" id="selectedSize">120×75 см</span>
+<span class="font-medium text-2xl" id="selectedPrice">14 000 ₴</span>
+</div>
+</div>
+<div class="flex items-center">
+<i class="fas fa-truck mr-2"></i>
+<span>Безкоштовна доставка по всій Україні</span>
+</div>
+</div>
+<!-- Правая колонка -->
+<div class="bg-[#121212] p-6 md:p-8 rounded-xl shadow-lg">
+<h3 class="text-2xl font-bold text-white mb-6">Оформити замовлення</h3>
+<form class="space-y-4" id="order-form">
+<div>
+<label class="block text-sm font-medium text-gray-300 mb-1" for="name">Ваше Ім'я</label>
+<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="name" placeholder="Ім’я" required="" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-300 mb-1" for="phone">Номер телефону</label>
+<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="phone" placeholder="(0XX) XXX-XX-XX" required="" type="tel"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-300 mb-1" for="Telegram">Telegram</label>
+<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="telegram" name="telegram" placeholder="@yourusername" required="" type="text"/>
+</div>
+<!-- Выбор модели -->
+<div>
+<label class="block text-sm font-medium text-gray-300 mb-1">Модель</label>
+<div class="relative w-full">
+<button class="w-full px-4 py-2 border border-gray-300 rounded-md bg-[#121212] text-white text-left flex justify-between items-center" onclick="toggleModelDropdown()" type="button">
+<span id="selectedModelDropdown">Black Titan S</span>
+<svg class="ml-2 transition-transform duration-300" fill="white" height="26" id="arrowIcon" viewbox="0 0 20 20" width="26">
+<path d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.25 4.38a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z">
+</path>
+</svg>
+</button>
+<!-- dropdown: теперь занимает место в потоке -->
+<ul class="transition-all duration-300 ease-in-out overflow-hidden max-h-0 opacity-0 bg-[#121212] border border-gray-300 rounded-md" id="modelDropdownList">
+<li class="px-4 py-2 cursor-pointer hover:bg-[#1e1e1e]" data-bg="backgrounds/bg-s.png" data-name="Black Titan S" data-price="14000" data-pulse="0.8" data-radius="15px" data-rank="s" data-size="120×75 см" onclick="selectModel(this)">Black Titan S</li>
+<li class="px-4 py-2 cursor-pointer hover:bg-[#1e1e1e]" data-bg="backgrounds/bg-m.png" data-name="Black Titan M" data-price="16000" data-pulse="0.8" data-radius="15px" data-rank="m" data-size="140×75 см" onclick="selectModel(this)">Black Titan M</li>
+<li class="px-4 py-2 cursor-pointer hover:bg-[#1e1e1e]" data-bg="backgrounds/bg-l.png" data-name="Black Titan L" data-price="18000" data-pulse="0.8" data-radius="15px" data-rank="l" data-size="160×85 см" onclick="selectModel(this)">Black Titan L</li>
+</ul>
+</div>
+</div>
+<button class="custom-order-btn form-wide" type="submit">
+                Відправити заявку
+              </button>
+</form>
+</div>
+</div>
+</div>
+<style>
+        #arrowIcon.rotate-180 {
+          transform: rotate(180deg);
+        }
+
+        #modelDropdownList {
+          transition: all 0.3s ease;
+        }
+      </style>
+</section>
+<!-- FAQ Section -->
+<section class="py-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Поширені запитання</h2>
+<p class="text-lg text-gray-400 max-w-3xl mx-auto">
+            Усе, що ви хотіли знати про Black Titan
+          </p>
+</div>
+<div class="max-w-3xl mx-auto space-y-4">
+<!-- FAQ 1 -->
+<div class="bg-[#121212] rounded-xl shadow-md overflow-hidden">
+<button class="w-full px-6 py-4 text-left font-medium text-white flex justify-between items-center" onclick="toggleAccordion('faq1')">
+<span class="" style="color: white;">Яка гарантія на стіл Black Titan?</span>
+<i class="fas fa-chevron-down transition-transform duration-700" id="icon-faq1"></i>
+</button>
+<div id="content-faq1" style="max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.8s ease, opacity 0.5s ease;">
+<div class="px-6 pb-4 text-gray-400">
+                На всі моделі Black Titan надається розширена гарантія 3 роки і 2 роки на електроніку.
+              </div>
+</div>
+</div>
+<!-- FAQ 2 -->
+<div class="bg-[#121212] rounded-xl shadow-md overflow-hidden">
+<button class="w-full px-6 py-4 text-left font-medium text-white flex justify-between items-center" onclick="toggleAccordion('faq2')">
+<span>Як відбувається доставка і збірка?</span>
+<i class="fas fa-chevron-down transition-transform duration-700" id="icon-faq2"></i>
+</button>
+<div id="content-faq2" style="max-height: 0; opacity: 0; overflow: hidden; transition: max-height 1s ease, opacity 0.5s ease;">
+<div class="px-6 pb-4 text-gray-400">
+                По всій Україні - безкоштовна доставка Новою Поштою.
+                У Харкові - власна безкоштовна доставка з рук у руки. Стіл збирається за 15–20 хвилин без зайвого
+                клопоту — все інструменти та покрокова інструкція вже в комплекті.
+              </div>
+</div>
+</div>
+<!-- FAQ 3 -->
+<div class="bg-[#121212] rounded-xl shadow-md overflow-hidden">
+<button class="w-full px-6 py-4 text-left font-medium text-white flex justify-between items-center" onclick="toggleAccordion('faq3')">
+<span>Чи можна налаштувати RGB-підсвічування під свої уподобання?</span>
+<i class="fas fa-chevron-down transition-transform duration-700" id="icon-faq3"></i>
+</button>
+<div id="content-faq3" style="max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.8s ease, opacity 0.5s ease;">
+<div class="px-6 pb-4 text-gray-400">
+                Так, підсвітка повністю керується через пульт: 16.8 мільйона кольорів, регулювання яскравості та
+                візуальні ефекти — усе під твоїм контролем.
+              </div>
+</div>
+</div>
+<!-- FAQ 4 -->
+<div class="bg-[#121212] rounded-xl shadow-md overflow-hidden">
+<button class="w-full px-6 py-4 text-left font-medium text-white flex justify-between items-center" onclick="toggleAccordion('faq4')">
+<span>Які умови оплати та термін виготовлення столу?</span>
+<i class="fas fa-chevron-down transition-transform duration-700" id="icon-faq4"></i>
+</button>
+<div id="content-faq4" style="max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.8s ease, opacity 0.5s ease;">
+<div class="px-6 pb-4 text-gray-400">
+                Передбачена передоплата 30% від вартості замовлення. Решта — при отриманні. Виготовлення займає від 7 до
+                14 робочих днів залежно від комплектації.
+              </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-[#080808]/60 backdrop-blur-md text-gray-300 py-12">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 w-full text-center">
+<!-- Блок 1: Vortex Gear -->
+<div class="flex flex-col items-center w-full">
+<div class="max-w-xs w-full">
+<h3 class="text-white font-bold text-lg mb-4">Vortex Gear</h3>
+<p class="mb-4">Професійне обладнання для кіберспортсменів і геймерів.</p>
+<div class="flex justify-center space-x-4">
+<a class="text-gray-400 hover:text-white transition-colors" href="#"><i class="fab fa-instagram"></i></a>
+<a class="text-gray-400 hover:text-white transition-colors" href="#"><i class="fab fa-telegram"></i></a>
+</div>
+</div>
+</div>
+<!-- Блок 2: Поддержка -->
+<div class="flex flex-col items-center w-full">
+<div class="max-w-xs w-full">
+<h3 class="text-white font-bold text-lg mb-4">Black Titan — це...</h3>
+<ul class="space-y-2">
+<li><a class="hover:text-white transition-colors">Black Titan — це стіл, який не просто стоїть. Він
+                    працює разом з тобою, витримуючи тиск, емоції й кожен раунд.</a></li>
+</ul>
+</div>
+</div>
+<!-- Блок 3: Контакты -->
+<div class="flex flex-col items-center w-full">
+<div class="max-w-xs w-full">
+<h3 class="text-white font-bold text-lg mb-4">Контакты</h3>
+<ul class="space-y-2">
+<li class="flex items-center justify-center"><i class="fas fa-phone-alt mr-2"></i><span><a href="tel:+380669118097">+380 (66)
+                      911-80-97</a></span></li>
+<li class="flex items-center justify-center"><i class="fas fa-phone-alt mr-2"></i><span><a href="tel:+380668039635">+380 (66)
+                      803-96-35</a></span></li>
+<li class="flex items-center justify-center"><i class="fas fa-envelope mr-2"></i><span>info@vortexgear.ua</span></li>
+<li class="flex items-center justify-center"><i class="fas fa-map-marker-alt mr-2"></i><span>Харків</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="w-3/4 mx-auto h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-50 my-8">
+</div>
+<div class="pt-3 text-center text-gray-500">
+<p>© 2025 Vortex Gear. Усі права захищені.</p>
+</div>
+</div>
+</footer>
+<script>
+</script>
+<script>
+      function toggleAccordion(id) {
+        const content = document.getElementById('content-' + id);
+        const icon = document.getElementById('icon-' + id);
+        const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+
+        if (isOpen) {
+          content.style.maxHeight = '0';
+          content.style.opacity = '0';
+          icon.classList.remove('rotate-180');
+        } else {
+          content.style.maxHeight = content.scrollHeight + 'px';
+          content.style.opacity = '1';
+          icon.classList.add('rotate-180');
+        }
+      }
+
+
+
+    </script>
+</div>
+<script>
+    function handleNavClick(event, sectionId) {
+      event.preventDefault();
+
+      const target = document.getElementById(sectionId);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      const menu = document.getElementById('mobile-menu');
+      if (menu) {
+        menu.classList.remove('translate-x-0');
+        menu.classList.add('translate-x-[110%]');
+      }
+
+      if (event.target && typeof event.target.blur === 'function') {
+        event.target.blur();
+      }
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById("mobile-menu");
+      const isOpen = !menu.classList.contains("translate-x-[110%]");
+      menu.classList.toggle("translate-x-[110%]");
+      menu.classList.toggle("translate-x-0");
+
+      if (!isOpen) {
+        menu.classList.remove("shadow-xl", "backdrop-blur-md");
+      } else {
+        menu.classList.add("shadow-xl", "backdrop-blur-md");
+      }
+    }
+
+  </script>
+<!-- Overlay: фон, ловит клик -->
+<div class="fixed inset-0 z-[9998] hidden md:hidden bg-black/70 backdrop-blur-md" id="mobile-overlay" onclick="closeMobileMenu()">
+</div>
+<!-- Бургер-меню поверх overlay -->
+<div class="fixed inset-0 z-[999] bg-[#0b0b0b]/60 backdrop-blur-md text-white scale-0 opacity-0 transition-all duration-300 ease-in-out flex flex-col justify-center items-center space-y-8 md:hidden drop-shadow-lg" id="mobile-menu" onclick="event.stopPropagation()">
+<!-- Close button -->
+<button class="absolute top-6 right-6 text-4xl text-white font-bold focus:outline-none" onclick="toggleMobileMenu()">×</button>
+<!-- Menu items -->
+<a class="text-2xl font-semibold hover:text-vortex-accent transition-all drop-shadow-md hover:scale-110 tracking-wide font-bold" href="#features" onclick="handleNavClick(event, 'features')">Особливості</a>
+<div class="w-3/4 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-50"></div>
+<a class="text-2xl font-semibold hover:text-vortex-accent transition-all drop-shadow-md hover:scale-110 tracking-wide font-bold" href="#specs" onclick="handleNavClick(event, 'specs')">Характеристики</a>
+<div class="w-3/4 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-50"></div>
+<a class="text-2xl font-semibold hover:text-vortex-accent transition-all drop-shadow-md hover:scale-110 tracking-wide font-bold" href="#gallery" onclick="handleNavClick(event, 'gallery')">Галерея</a>
+<div class="w-3/4 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-50"></div>
+</div>
+<script>
+    function handleNavClick(event, sectionId) {
+      event.preventDefault();
+
+      const target = document.getElementById(sectionId);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      const menu = document.getElementById('mobile-menu');
+      if (menu && menu.classList.contains('scale-100')) {
+        menu.classList.remove('scale-100', 'opacity-100');
+        menu.classList.add('scale-0', 'opacity-0');
+      }
+
+      if (event.target && typeof event.target.blur === 'function') {
+        event.target.blur();
+      }
+    }
+  </script>
+<script>
+    window.addEventListener("load", () => {
+      const preloader = document.getElementById("preloader");
+      if (preloader) {
+        setTimeout(() => {
+          preloader.style.opacity = "0";
+          setTimeout(() => {
+            preloader.remove();
+          }, 200); // Плавное исчезновение
+        }, 1500); // Прелоадер виден 2 секунды
+      }
+    });
+  </script>
+<!-- Бургер-фон + меню -->
+<div class="fixed inset-0 z-[9998] hidden md:hidden bg-black/70 backdrop-blur-md" id="mobile-overlay" onclick="closeMobileMenu()">
+</div>
+<button id="orderBtn">Заказать</button>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("order-form");
+
+    if (!form) return;
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const btn = this.querySelector("button[type='submit']");
+      btn.disabled = true;
+      btn.textContent = "Отправка...";
+
+      const formData = new FormData(this);
+      const payload = {
+        name: formData.get("name"),
+        phone: formData.get("phone"),
+        telegram: formData.get("telegram"),
+        model: formData.get("model"),
+      };
+
+      try {
+        const res = await fetch("https://vortex-exxysp1xz-dmitrycgis-projects.vercel.app/api/send", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await res.json();
+
+        if (result.success) {
+          showConfirmationModal();
+          this.reset();
+        } else {
+          alert("❌ Ошибка сервера: " + (result.error || "неизвестная"));
+        }
+      } catch (err) {
+        console.error("Ошибка:", err);
+        alert("❌ Не удалось отправить. Проверьте подключение.");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Оформить заказ";
+      }
+    });
+  });
+</script>
+<script>
+    // Отключаем авто-восстановление скролла браузером
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
+    // Принудительно скроллим вверх при загрузке
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      }, 10);
+    });
+  </script>
+<script>
+    function toggleModelDropdown() {
+      const dropdown = document.getElementById("modelDropdownList");
+      const arrow = document.getElementById("arrowIcon");
+      const isOpen = dropdown.style.maxHeight !== "0px" && dropdown.style.maxHeight !== "";
+
+      if (isOpen) {
+        dropdown.style.maxHeight = "0";
+        dropdown.style.opacity = "0";
+        arrow.classList.remove("rotate-180");
+      } else {
+        dropdown.style.maxHeight = dropdown.scrollHeight + "px";
+        dropdown.style.opacity = "1";
+        arrow.classList.add("rotate-180");
+      }
+    }
+
+    function selectModel(el) {
+      const name = el.dataset.name;
+      const price = el.dataset.price;
+      const size = el.dataset.size;
+      const bg = el.dataset.bg;
+      const radius = el.dataset.radius;
+      const rank = el.dataset.rank;
+      const pulse = parseFloat(el.dataset.pulse);
+
+      const glowColors = {
+        s: `rgba(0, 183, 255, ${pulse})`,
+        m: `rgba(255, 153, 0, ${pulse})`,
+        l: `rgba(255, 50, 50, ${pulse})`
+      };
+
+      document.getElementById("selectedModel").textContent = name;
+      document.getElementById("selectedModelDropdown").textContent = name;
+      document.getElementById("selectedSize").textContent = size;
+      document.getElementById("selectedPrice").textContent = new Intl.NumberFormat("ru-RU").format(price) + " ₴";
+
+      const card = document.getElementById("modelCard");
+      card.style.backgroundImage = `url('${bg}')`;
+      card.style.setProperty("--glow-color", glowColors[rank]);
+      card.style.borderRadius = radius;
+
+      toggleModelDropdown();
+    }
+
+  </script>
+<style>
+    #modelDropdownList li {
+      transition: opacity 0.4s ease;
+    }
+
+    #arrowIcon.rotate-180 {
+      transform: rotate(180deg);
+    }
+  </style>
+<script>
+    (function () {
+      const select = document.getElementById("modelSelect");
+      const arrow = document.getElementById("customArrow");
+
+      if (!select || !arrow) return;
+
+      let isOpen = false;
+
+      select.addEventListener("click", () => {
+        isOpen = !isOpen;
+        arrow.classList.toggle("rotate-180", isOpen);
+      });
+
+      select.addEventListener("blur", () => {
+        isOpen = false;
+        arrow.classList.remove("rotate-180");
+      });
+    })();
+
+    function toggleModelDropdown() {
+      const dropdown = document.getElementById("modelDropdownList");
+      const arrow = document.getElementById("arrowIcon");
+
+      const isOpen = dropdown.classList.contains("max-h-[0px]") || dropdown.style.maxHeight === "0px" || dropdown.style.maxHeight === "";
+
+      if (isOpen) {
+        dropdown.style.maxHeight = dropdown.scrollHeight + "px";
+        dropdown.style.opacity = "1";
+        arrow.classList.add("rotate-180");
+      } else {
+        dropdown.style.maxHeight = "0";
+        dropdown.style.opacity = "0";
+        arrow.classList.remove("rotate-180");
+      }
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+
+    });
+
+  </script>
+<!-- МОДАЛЬНОЕ ОКНО -->
+<style>
+    @keyframes modal-bg-in {
+      0% {
+        background-color: rgba(0, 0, 0, 0);
+        backdrop-filter: blur(0px);
+      }
+
+      100% {
+        background-color: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(8px);
+      }
+    }
+
+    @keyframes modal-content-in {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes modal-bg-out {
+      0% {
+        background-color: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(8px);
+      }
+
+      100% {
+        background-color: rgba(0, 0, 0, 0);
+        backdrop-filter: blur(0px);
+      }
+    }
+
+    @keyframes modal-content-out {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+    }
+
+    .modal-bg {
+      animation: modal-bg-in 0.4s ease forwards;
+    }
+
+    .modal-content-animate {
+      animation: modal-content-in 0.4s ease forwards;
+    }
+
+    .modal-bg-close {
+      animation: modal-bg-out 0.4s ease forwards;
+    }
+
+    .modal-content-close {
+      animation: modal-content-out 0.3s ease forwards;
+    }
+  </style>
+<div class="fixed inset-0 z-[99999] hidden flex items-center justify-center" id="confirmation-modal">
+<div class="absolute inset-0 bg-black/0 backdrop-blur-none" id="modal-backdrop"></div>
+<div class="relative bg-[#121212] text-white rounded-2xl p-8 shadow-2xl text-center max-w-md mx-4" id="modal-content">
+<h2 class="text-2xl font-bold mb-4"><span class="inline-flex items-center justify-center gap-2">🎉 <span>Ваше
+            замовлення оформлене</span> 🎉</span></h2>
+<p class="mb-2">Найближчим часом із вами зв'яжеться наш менеджер.</p>
+<p class="text-sm text-gray-400">💙Раді, що ви обрали нас!💛</p>
+<button class="mt-6 px-24 py-2 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full text-black font-semibold transition-all duration-300 ease-in-out hover:shadow-[0_0_12px_2px_rgba(0,255,255,0.7)] hover:-translate-y-1" onclick="hideConfirmationModal()">
+        Закрити
+      </button>
+</div>
+</div>
+<script>
+    function showConfirmationModal() {
+      const modal = document.getElementById("confirmation-modal");
+      const backdrop = document.getElementById("modal-backdrop");
+      const content = document.getElementById("modal-content");
+
+      modal.classList.remove("hidden");
+      backdrop.classList.remove("modal-bg-close");
+      content.classList.remove("modal-content-close");
+
+      backdrop.classList.add("modal-bg");
+      content.classList.add("modal-content-animate");
+
+      document.body.style.overflow = "hidden";
+    }
+
+    function hideConfirmationModal() {
+      const modal = document.getElementById("confirmation-modal");
+      const backdrop = document.getElementById("modal-backdrop");
+      const content = document.getElementById("modal-content");
+
+      backdrop.classList.remove("modal-bg");
+      content.classList.remove("modal-content-animate");
+
+      backdrop.classList.add("modal-bg-close");
+      content.classList.add("modal-content-close");
+
+      setTimeout(() => {
+        modal.classList.add("hidden");
+        document.body.style.overflow = "auto";
+      }, 400);
+    }
+  </script>
+<script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById("mobile-menu");
+      if (!menu) return;
+      const isOpen = menu.classList.contains("scale-100");
+
+      menu.classList.toggle("scale-100", !isOpen);
+      menu.classList.toggle("scale-0", isOpen);
+      menu.classList.toggle("opacity-100", !isOpen);
+      menu.classList.toggle("opacity-0", isOpen);
+
+      if (!isOpen) {
+        menu.classList.add("shadow-xl", "backdrop-blur-md");
+        document.body.style.overflow = "hidden";
+      } else {
+        menu.classList.remove("shadow-xl", "backdrop-blur-md");
+        document.body.style.overflow = "auto";
+      }
+    }
+  </script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
+      mobileMenuLinks.forEach(link => {
+        link.addEventListener("click", () => {
+          document.body.style.overflow = "auto";
+        });
+      });
+    });
+  </script>
+<script>
+    const preloadImages = ["bg-s.png", "bg-m.png", "bg-l.png"];
+    preloadImages.forEach(name => {
+      const img = new Image();
+      img.src = `backgrounds/${name}`;
+    });
+  </script>
+</body>
+</html>
