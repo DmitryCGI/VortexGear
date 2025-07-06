@@ -181,21 +181,7 @@
       }
     }
   </style>
-  <script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" type="module">
-    function toggleMobileMenu() {
-      const menu = document.getElementById("mobile-menu");
-      const isOpen = !menu.classList.contains("translate-x-[110%]");
-      menu.classList.toggle("translate-x-[110%]");
-      menu.classList.toggle("translate-x-0");
-
-      if (!isOpen) {
-        menu.classList.add("shadow-xl", "backdrop-blur-md");
-      } else {
-        menu.classList.remove("shadow-xl", "backdrop-blur-md");
-      }
-    }
-
-  </script>
+  
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Vortex Gear</title>
@@ -342,6 +328,30 @@
       -moz-appearance: none;
     }
   </style>
+
+  <link rel="preload" as="image" href="backgrounds/model-s.jpg">
+  <link rel="preload" as="image" href="backgrounds/model-m.jpg">
+  <link rel="preload" as="image" href="backgrounds/model-l.jpg">
+
+
+<style>
+  @media (max-width: 768px) {
+    #modelCard {
+      padding-top: 1.25rem !important;  /* уменьшить отступ сверху */
+      padding-bottom: 1.25rem !important;
+      min-height: auto !important;
+    }
+
+    #modelCard h3 {
+      font-size: 1.25rem !important; /* уменьшить заголовок */
+    }
+
+    #modelCard p {
+      font-size: 0.875rem !important; /* уменьшить текст */
+    }
+  }
+</style>
+
 </head>
 <!-- Priority Preloader -->
 <div id="preloader"
@@ -756,23 +766,7 @@
           transition: all 0.3s ease;
         }
       </style>
-      <script>
-
-
-        function toggleMobileMenu() {
-          const menu = document.getElementById("mobile-menu");
-          const isOpen = !menu.classList.contains("translate-x-[110%]");
-          menu.classList.toggle("translate-x-[110%]");
-          menu.classList.toggle("translate-x-0");
-
-          if (!isOpen) {
-            menu.classList.add("shadow-xl", "backdrop-blur-md");
-          } else {
-            menu.classList.remove("shadow-xl", "backdrop-blur-md");
-          }
-        }
-
-      </script>
+      
     </section>
     <!-- FAQ Section -->
     <section class="py-20">
@@ -979,18 +973,7 @@
       href="#gallery" onclick="handleNavClick(event, 'gallery')">Галерея</a>
     <div class="w-3/4 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-50"></div>
   </div>
-  <script defer="">
-    function toggleMobileMenu() {
-      const menu = document.getElementById("mobile-menu");
-      if (!menu) return;
-      const isOpen = menu.classList.contains("scale-100");
-
-      menu.classList.toggle("scale-100", !isOpen);
-      menu.classList.toggle("scale-0", isOpen);
-      menu.classList.toggle("opacity-100", !isOpen);
-      menu.classList.toggle("opacity-0", isOpen);
-    }
-  </script>
+  
   <script>
     function handleNavClick(event, sectionId) {
       event.preventDefault();
@@ -1036,36 +1019,25 @@
       submitButton.disabled = true;
       submitButton.textContent = "Відправлення...";
 
-      const token = "8106374286:AAFw70LTQEFCRUsSHPWhTVBbIIvA0IvdMeQ";
-      const chatId = "559575493";
-
-      const name = document.getElementById("name").value;
+            const name = document.getElementById("name").value;
       const phone = document.getElementById("phone").value;
       const telegram = document.getElementById("telegram").value;
       const model = document.getElementById("selectedModelDropdown").textContent;
 
-      const message = `
-📦 <b>Новый заказ с сайта</b>
-👤 Имя: ${name}
-📞 Телефон: ${phone}
-✉️ Telegram: ${telegram}
-🪑 Модель: ${model}
-    `;
+      
 
-      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      fetch("https://vortexgeartelegramapi.design-republic-shcool.workers.dev", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          chat_id: chatId,
-          text: message,
-          parse_mode: "HTML"
+          name, phone, telegram, model
         })
       })
         .then(response => {
           if (response.ok) {
-            document.getElementById("confirmation-modal").classList.remove("hidden");
+            showConfirmationModal();
             document.getElementById("order-form").reset();
             submitButton.textContent = "Відправлено (чекайте...)";
             setTimeout(() => {
@@ -1086,61 +1058,7 @@
         });
     });
   </script>
-  <div class="fixed inset-0 z-[99999] bg-black/80 backdrop-blur-sm flex items-center justify-center hidden"
-    id="confirmation-modal">
-    <div class="bg-[#121212] text-white rounded-2xl p-8 shadow-2xl text-center max-w-md mx-4">
-      <h2 class="text-2xl font-bold mb-4"><span class="inline-flex items-center justify-center gap-2">🎉 <span>Ваше
-            замовлення оформлене</span> 🎉</span></h2>
-      <p class="mb-2">Найближчим часом із вами зв'яжеться наш менеджер.</p>
-      <p class="text-sm text-gray-400"><span class="inline-block">💙</span>Раді, що ви обрали нас! <span class="inline-block">💛</span></p>
-      <button
-        class="mt-6 px-24 py-2 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full text-black font-semibold transition-all duration-300 ease-in-out hover:shadow-[0_0_12px_2px_rgba(0,255,255,0.7)] hover:-translate-y-1"
-        onclick="document.getElementById('confirmation-modal').classList.add('hidden')">
-        Закрити
-      </button>
-    </div>
-  </div>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const phoneInput = document.getElementById("phone");
-
-      function validatePhone() {
-        const value = phoneInput.value.trim();
-        const startsWithZero = value.length >= 1 && value[0] === "0";
-        const validLength = value.length === 10;
-        const digitsOnly = /^\d*$/.test(value);
-
-        if (!startsWithZero && value.length > 0) {
-          phoneInput.setCustomValidity("Номер має починатися з 0");
-          phoneInput.classList.add("border-red-500", "focus:ring-red-500");
-          phoneInput.classList.remove("focus:ring-vortex-primary");
-        } else if (!digitsOnly) {
-          phoneInput.setCustomValidity("Допустимі тільки цифри");
-          phoneInput.classList.add("border-red-500", "focus:ring-red-500");
-          phoneInput.classList.remove("focus:ring-vortex-primary");
-        } else if (value.length > 0 && value.length !== 10) {
-          phoneInput.setCustomValidity("Номер повинен містити рівно 10 цифр");
-          phoneInput.classList.add("border-red-500", "focus:ring-red-500");
-          phoneInput.classList.remove("focus:ring-vortex-primary");
-        } else {
-          phoneInput.setCustomValidity("");
-          phoneInput.classList.remove("border-red-500", "focus:ring-red-500");
-          phoneInput.classList.add("focus:ring-vortex-primary");
-        }
-
-        phoneInput.reportValidity();
-      }
-
-      phoneInput.addEventListener("input", validatePhone);
-
-      document.getElementById("order-form").addEventListener("submit", function (e) {
-        validatePhone();
-        if (!phoneInput.checkValidity()) {
-          e.preventDefault();
-        }
-      });
-    });
-  </script>
+  
   <script>
     // Отключаем авто-восстановление скролла браузером
     if ('scrollRestoration' in history) {
@@ -1252,6 +1170,162 @@
     });
 
   </script>
+
+<!-- МОДАЛЬНОЕ ОКНО -->
+<style>
+  @keyframes modal-bg-in {
+    0% {
+      background-color: rgba(0,0,0,0);
+      backdrop-filter: blur(0px);
+    }
+    100% {
+      background-color: rgba(0,0,0,0.8);
+      backdrop-filter: blur(8px);
+    }
+  }
+
+  @keyframes modal-content-in {
+    0% {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes modal-bg-out {
+    0% {
+      background-color: rgba(0,0,0,0.8);
+      backdrop-filter: blur(8px);
+    }
+    100% {
+      background-color: rgba(0,0,0,0);
+      backdrop-filter: blur(0px);
+    }
+  }
+
+  @keyframes modal-content-out {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+  }
+
+  .modal-bg {
+    animation: modal-bg-in 0.4s ease forwards;
+  }
+
+  .modal-content-animate {
+    animation: modal-content-in 0.4s ease forwards;
+  }
+
+  .modal-bg-close {
+    animation: modal-bg-out 0.4s ease forwards;
+  }
+
+  .modal-content-close {
+    animation: modal-content-out 0.3s ease forwards;
+  }
+</style>
+
+<div id="confirmation-modal" class="fixed inset-0 z-[99999] hidden flex items-center justify-center">
+  <div id="modal-backdrop" class="absolute inset-0 bg-black/0 backdrop-blur-none"></div>
+  <div id="modal-content"
+       class="relative bg-[#121212] text-white rounded-2xl p-8 shadow-2xl text-center max-w-md mx-4">
+    <h2 class="text-2xl font-bold mb-4"><span class="inline-flex items-center justify-center gap-2">🎉 <span>Ваше замовлення оформлене</span> 🎉</span></h2>
+    <p class="mb-2">Найближчим часом із вами зв'яжеться наш менеджер.</p>
+    <p class="text-sm text-gray-400">💙Раді, що ви обрали нас!💛</p>
+    <button
+      onclick="hideConfirmationModal()"
+      class="mt-6 px-24 py-2 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full text-black font-semibold transition-all duration-300 ease-in-out hover:shadow-[0_0_12px_2px_rgba(0,255,255,0.7)] hover:-translate-y-1">
+      Закрити
+    </button>
+  </div>
+</div>
+
+<script>
+  function showConfirmationModal() {
+    const modal = document.getElementById("confirmation-modal");
+    const backdrop = document.getElementById("modal-backdrop");
+    const content = document.getElementById("modal-content");
+
+    modal.classList.remove("hidden");
+    backdrop.classList.remove("modal-bg-close");
+    content.classList.remove("modal-content-close");
+
+    backdrop.classList.add("modal-bg");
+    content.classList.add("modal-content-animate");
+  
+  document.body.style.overflow = "hidden";
+}
+
+  function hideConfirmationModal() {
+    const modal = document.getElementById("confirmation-modal");
+    const backdrop = document.getElementById("modal-backdrop");
+    const content = document.getElementById("modal-content");
+
+    backdrop.classList.remove("modal-bg");
+    content.classList.remove("modal-content-animate");
+
+    backdrop.classList.add("modal-bg-close");
+    content.classList.add("modal-content-close");
+
+    setTimeout(() => {
+      modal.classList.add("hidden");
+      document.body.style.overflow = "auto";
+    }, 400);
+  }
+</script>
+
+
+<script>
+  function toggleMobileMenu() {
+    const menu = document.getElementById("mobile-menu");
+    if (!menu) return;
+    const isOpen = menu.classList.contains("scale-100");
+
+    menu.classList.toggle("scale-100", !isOpen);
+    menu.classList.toggle("scale-0", isOpen);
+    menu.classList.toggle("opacity-100", !isOpen);
+    menu.classList.toggle("opacity-0", isOpen);
+
+    if (!isOpen) {
+      menu.classList.add("shadow-xl", "backdrop-blur-md");
+      document.body.style.overflow = "hidden";
+    } else {
+      menu.classList.remove("shadow-xl", "backdrop-blur-md");
+      document.body.style.overflow = "auto";
+    }
+  }
+</script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
+    mobileMenuLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        document.body.style.overflow = "auto";
+      });
+    });
+  });
+</script>
+
+<script>
+  const preloadImages = ["model-s.jpg", "model-m.jpg", "model-l.jpg"];
+  preloadImages.forEach(name => {
+    const img = new Image();
+    img.src = `backgrounds/${name}`;
+  });
+</script>
+
 </body>
+
 
 </html>
