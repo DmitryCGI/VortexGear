@@ -669,7 +669,7 @@
 </div>
 <div>
 <label class="block text-sm font-medium text-gray-300 mb-1" for="phone">Номер телефону</label>
-<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="phone" inputmode="tel" name="phone" pattern="^\s*(\+380|380|0)\s*\d{2}\s*\d{3}\s*\d{2}\s*\d{2}\s*$" placeholder="(0XX) XXX-XX-XX" required="" title="Номер може містити пробіли і має починатися з +380, 380 або 0" type="tel"/>
+<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="phone" name="phone" pattern="^(\+380|380|0)[\d\s]{9,13}$" placeholder="(0XX) XXX-XX-XX" required="" title="Номер повинен містити не більше 4 пробілів та починатися з +380, 380 або 0" type="tel"/>
 </div>
 <div>
 <label class="block text-sm font-medium text-gray-300 mb-1" for="Telegram">Telegram</label>
@@ -935,6 +935,54 @@
 </div>
 <button id="orderBtn">Заказать</button>
 <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("order-form");
+
+      if (!form) return;
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const btn = this.querySelector("button[type='submit']");
+        btn.disabled = true;
+        btn.textContent = "Отправка...";
+
+        const formData = new FormData(this);
+        const payload = {
+          name: formData.get("name"),
+          phone: formData.get("phone"),
+          telegram: formData.get("telegram"),
+          model: formData.get("model"),
+        };
+
+        try {
+          const res = await fetch("https://vortex-api-sooty.vercel.app/api/send", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+          });
+
+          const result = await res.json();
+
+          if (result.success) {
+            showConfirmationModal();
+            this.reset();
+          } else {
+            alert("❌ Ошибка сервера: " + (result.error || "неизвестная"));
+          }
+        } catch (err) {
+          console.error("Ошибка:", err);
+          alert("❌ Не удалось отправить. Проверьте подключение.");
+        } finally {
+          btn.disabled = false;
+          btn.textContent = "Оформить заказ";
+        }
+      });
+    });
+  </script>
+<script>
     // Отключаем авто-восстановление скролла браузером
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
@@ -1192,16 +1240,5 @@
     });
   </script>
 <script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" type="module"></script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("order-form");
-  const telegram = document.getElementById("telegram");
-
-  form.addEventListener("submit", () => {
-    if (telegram.value && !telegram.value.startsWith("@")) {
-      telegram.value = "@" + telegram.value;
-    }
-  });
-});
-</script></body>
+</body>
 </html>
