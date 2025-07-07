@@ -1209,13 +1209,14 @@ document.addEventListener("DOMContentLoaded", () => {
 </script><script>
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("order-form");
-  const telegram = document.getElementById("telegram");
   const phoneInput = document.getElementById("phone");
+  const telegram = document.getElementById("telegram");
 
+  // Удаляем пробелы в номере при вводе
   phoneInput.addEventListener("input", () => {
-    const value = phoneInput.value.trim();
+    phoneInput.value = phoneInput.value.replace(/\s+/g, "");
     const phoneRegex = /^(\+380\d{9}|380\d{9}|0\d{9})$/;
-    if (phoneRegex.test(value)) {
+    if (phoneRegex.test(phoneInput.value)) {
       phoneInput.setCustomValidity("");
     } else {
       phoneInput.setCustomValidity("Номер має починатися з +380, 380 або 0 та містити 9 цифр після цього");
@@ -1226,7 +1227,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     const name = form.name.value.trim();
-    let phone = form.phone.value.trim().replace(/\s+/g, '');
+    let phone = form.phone.value.trim();
     let tg = form.telegram.value.trim();
     let model = form.model.value.trim();
 
@@ -1234,12 +1235,7 @@ document.addEventListener("DOMContentLoaded", () => {
       tg = "@" + tg;
     }
 
-    const payload = {
-      name: name,
-      phone: phone,
-      telegram: tg,
-      model: model
-    };
+    const payload = { name, phone, telegram: tg, model };
 
     const btn = form.querySelector("button[type='submit']");
     btn.disabled = true;
@@ -1255,7 +1251,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       const data = await res.json();
-
       if (data.success) {
         form.reset();
         showConfirmationModal();
@@ -1263,11 +1258,11 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Помилка сервера: " + (data.error || "невідома"));
       }
     } catch (err) {
-      console.error("Помилка відправки:", err);
-      alert("Не вдалося надіслати заявку. Спробуйте ще раз.");
+      console.error("Помилка:", err);
+      alert("Не вдалося надіслати заявку.");
     } finally {
       btn.disabled = false;
-      btn.textContent = "Відправити заявку";
+      btn.textContent = "Оформити заказ";
     }
   });
 });
