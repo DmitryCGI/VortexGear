@@ -1210,10 +1210,64 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("order-form");
   const telegram = document.getElementById("telegram");
+  const phoneInput = document.getElementById("phone");
 
-  form.addEventListener("submit", () => {
-    if (telegram.value && !telegram.value.startsWith("@")) {
-      telegram.value = "@" + telegram.value;
+  phoneInput.addEventListener("input", () => {
+    const value = phoneInput.value.trim();
+    const phoneRegex = /^(\+380\d{9}|380\d{9}|0\d{9})$/;
+    if (phoneRegex.test(value)) {
+      phoneInput.setCustomValidity("");
+    } else {
+      phoneInput.setCustomValidity("Номер має починатися з +380, 380 або 0 та містити 9 цифр після цього");
+    }
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const name = form.name.value.trim();
+    let phone = form.phone.value.trim();
+    let tg = form.telegram.value.trim();
+    let model = form.model.value.trim();
+
+    if (!tg.startsWith("@")) {
+      tg = "@" + tg;
+    }
+
+    const payload = {
+      name: name,
+      phone: phone,
+      telegram: tg,
+      model: model
+    };
+
+    const btn = form.querySelector("button[type='submit']");
+    btn.disabled = true;
+    btn.textContent = "Відправка...";
+
+    try {
+      const res = await fetch("https://vortex-api-sooty.vercel.app/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        form.reset();
+        showConfirmationModal();
+      } else {
+        alert("Помилка сервера: " + (data.error || "невідома"));
+      }
+    } catch (err) {
+      console.error("Помилка відправки:", err);
+      alert("Не вдалося надіслати заявку. Спробуйте ще раз.");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Відправити заявку";
     }
   });
 });
