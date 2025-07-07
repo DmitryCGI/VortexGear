@@ -669,7 +669,7 @@
 </div>
 <div>
 <label class="block text-sm font-medium text-gray-300 mb-1" for="phone">Номер телефону</label>
-<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="phone" inputmode="tel" name="phone" pattern="^(\+380\d{9}|380\d{9}|0\d{9})$" placeholder="(0XX) XXX-XX-XX" required="" title="Номер має починатися з +380, 380 або 0 та містити 9 цифр після цього" type="tel"/>
+<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="phone" inputmode="tel" name="phone" pattern="^\s*(\+380|380|0)\s*\d{2}\s*\d{3}\s*\d{2}\s*\d{2}\s*$" placeholder="(0XX) XXX-XX-XX" required="" title="Номер може містити пробіли і має починатися з +380, 380 або 0" type="tel"/>
 </div>
 <div>
 <label class="block text-sm font-medium text-gray-300 mb-1" for="Telegram">Telegram</label>
@@ -1194,75 +1194,12 @@
 <script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" type="module"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const phoneInput = document.getElementById("phone");
-
-  phoneInput.addEventListener("input", () => {
-    const value = phoneInput.value.trim();
-    const phoneRegex = /^(\+380\d{9}|380\d{9}|0\d{9})$/;
-    if (phoneRegex.test(value)) {
-      phoneInput.setCustomValidity("");
-    } else {
-      phoneInput.setCustomValidity("Номер має починатися з +380, 380 або 0 та містити 9 цифр після цього");
-    }
-  });
-});
-</script><script>
-document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("order-form");
-  const phoneInput = document.getElementById("phone");
   const telegram = document.getElementById("telegram");
 
-  // Удаляем пробелы в номере при вводе
-  phoneInput.addEventListener("input", () => {
-    phoneInput.value = phoneInput.value.replace(/\s+/g, "");
-    const phoneRegex = /^(\+380\d{9}|380\d{9}|0\d{9})$/;
-    if (phoneRegex.test(phoneInput.value)) {
-      phoneInput.setCustomValidity("");
-    } else {
-      phoneInput.setCustomValidity("Номер має починатися з +380, 380 або 0 та містити 9 цифр після цього");
-    }
-  });
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const name = form.name.value.trim();
-    let phone = form.phone.value.trim();
-    let tg = form.telegram.value.trim();
-    let model = form.model.value.trim();
-
-    if (!tg.startsWith("@")) {
-      tg = "@" + tg;
-    }
-
-    const payload = { name, phone, telegram: tg, model };
-
-    const btn = form.querySelector("button[type='submit']");
-    btn.disabled = true;
-    btn.textContent = "Відправка...";
-
-    try {
-      const res = await fetch("https://vortex-api-sooty.vercel.app/api/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-      });
-
-      const data = await res.json();
-      if (data.success) {
-        form.reset();
-        showConfirmationModal();
-      } else {
-        alert("Помилка сервера: " + (data.error || "невідома"));
-      }
-    } catch (err) {
-      console.error("Помилка:", err);
-      alert("Не вдалося надіслати заявку.");
-    } finally {
-      btn.disabled = false;
-      btn.textContent = "Оформити заказ";
+  form.addEventListener("submit", () => {
+    if (telegram.value && !telegram.value.startsWith("@")) {
+      telegram.value = "@" + telegram.value;
     }
   });
 });
