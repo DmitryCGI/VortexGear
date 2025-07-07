@@ -934,54 +934,7 @@
 <div class="fixed inset-0 z-[9998] hidden md:hidden bg-black/70 backdrop-blur-md" id="mobile-overlay" onclick="closeMobileMenu()">
 </div>
 <button id="orderBtn">Заказать</button>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const form = document.getElementById("order-form");
 
-      if (!form) return;
-
-      form.addEventListener("submit", async function (e) {
-        e.preventDefault();
-
-        const btn = this.querySelector("button[type='submit']");
-        btn.disabled = true;
-        btn.textContent = "Отправка...";
-
-        const formData = new FormData(this);
-        const payload = {
-          name: formData.get("name"),
-          phone: formData.get("phone"),
-          telegram: formData.get("telegram"),
-          model: formData.get("model"),
-        };
-
-        try {
-          const res = await fetch("https://vortex-api-sooty.vercel.app/api/send", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-          });
-
-          const result = await res.json();
-
-          if (result.success) {
-            showConfirmationModal();
-            this.reset();
-          } else {
-            alert("❌ Ошибка сервера: " + (result.error || "неизвестная"));
-          }
-        } catch (err) {
-          console.error("Ошибка:", err);
-          alert("❌ Не удалось отправить. Проверьте подключение.");
-        } finally {
-          btn.disabled = false;
-          btn.textContent = "Оформить заказ";
-        }
-      });
-    });
-  </script>
 <script>
     // Отключаем авто-восстановление скролла браузером
     if ('scrollRestoration' in history) {
@@ -1037,7 +990,6 @@
       card.style.setProperty("--glow-color", glowColors[rank]);
       card.style.borderRadius = radius;
 
-      document.getElementById("hiddenModelInput").value = name;
       toggleModelDropdown();
     }
 
@@ -1241,5 +1193,65 @@
     });
   </script>
 <script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" type="module"></script>
-</body>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("order-form");
+  const telegram = document.getElementById("telegram");
+  const phoneInput = document.getElementById("phone");
+
+  // Live валидация телефона (с пробелами)
+  phoneInput.addEventListener("input", () => {
+    const value = phoneInput.value.trim();
+    const phoneRegex = /^(\+380|380|0)[\d\s]{9,13}$/;
+    if (phoneRegex.test(value)) {
+      phoneInput.setCustomValidity("");
+    } else {
+      phoneInput.setCustomValidity("Номер має починатися з +380, 380 або 0 та містити 9 цифр");
+    }
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const name = form.name.value.trim();
+    const model = document.getElementById("hiddenModelInput").value;
+    let phone = form.phone.value.trim();
+    let tg = form.telegram.value.trim();
+
+    if (tg && !tg.startsWith("@")) {
+      tg = "@" + tg;
+    }
+
+    const payload = { name, phone, telegram: tg, model };
+
+    const btn = form.querySelector("button[type='submit']");
+    btn.disabled = true;
+    btn.textContent = "Відправка...";
+
+    try {
+      const res = await fetch("https://vortex-api-sooty.vercel.app/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        form.reset();
+        showConfirmationModal();
+      } else {
+        alert("Помилка сервера: " + (result.error || "невідома"));
+      }
+    } catch (err) {
+      console.error("Помилка:", err);
+      alert("Не вдалося надіслати заявку.");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Оформити заказ";
+    }
+  });
+});
+</script></body>
 </html>
