@@ -1226,7 +1226,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     const name = form.name.value.trim();
-    let phone = form.phone.value.trim();
+    let phone = form.phone.value.trim().replace(/\s+/g, '');
     let tg = form.telegram.value.trim();
     let model = form.model.value.trim();
 
