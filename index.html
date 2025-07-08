@@ -1200,62 +1200,54 @@ document.addEventListener("DOMContentLoaded", () => {
   const phoneInput = document.getElementById("phone");
   const telegramInput = document.getElementById("telegram");
 
-  function validatePhone() {
-    const value = phoneInput.value.trim();
-    const phoneRegex = /^(\+380|380|0)[\d\s]{9,13}$/;
-    if (value === "") {
-      phoneInput.setCustomValidity("Введіть номер телефону");
-      return false;
-    } else if (!phoneRegex.test(value)) {
-      phoneInput.setCustomValidity("Номер повинен містити не більше 4 пробілів та починатися з +380, 380 або 0");
-      return false;
-    } else {
-      phoneInput.setCustomValidity("");
-      return true;
-    }
-  }
+  const phoneRegex = /^(\+380|380|0)[\d\s]{9,13}$/;
 
   form.addEventListener("submit", (e) => {
-    e.preventDefault(); // предотвращаем отправку по умолчанию
-    let error = false;
+    e.preventDefault();
 
-    // Проверка по порядку: имя
+    // Очищаем все подсказки
+    nameInput.setCustomValidity("");
+    phoneInput.setCustomValidity("");
+    telegramInput.setCustomValidity("");
+
+    // Проверка: Имя
     if (nameInput.value.trim() === "") {
       nameInput.setCustomValidity("Введіть ваше ім’я");
       nameInput.reportValidity();
-      error = true;
+      nameInput.focus();
       return;
-    } else {
-      nameInput.setCustomValidity("");
     }
 
-    // телефон
-    const phoneValid = validatePhone();
-    if (!phoneValid) {
+    // Проверка: Номер
+    const phone = phoneInput.value.trim();
+    if (phone === "") {
+      phoneInput.setCustomValidity("Введіть номер телефону");
       phoneInput.reportValidity();
-      error = true;
+      phoneInput.focus();
+      return;
+    }
+    if (!phoneRegex.test(phone)) {
+      phoneInput.setCustomValidity("Номер повинен містити не більше 4 пробілів та починатися з +380, 380 або 0");
+      phoneInput.reportValidity();
+      phoneInput.focus();
       return;
     }
 
-    // телеграм
-    const tg = telegramInput.value.trim();
-    if (tg === "") {
+    // Проверка: Telegram
+    const tgValue = telegramInput.value.trim();
+    if (tgValue === "") {
       telegramInput.setCustomValidity("Введіть Telegram");
       telegramInput.reportValidity();
-      error = true;
+      telegramInput.focus();
       return;
-    } else {
-      telegramInput.setCustomValidity("");
     }
 
-    // автодобавление @
-    if (!tg.startsWith("@")) {
-      telegramInput.value = "@" + tg;
+    // Авто-добавление @
+    if (!tgValue.startsWith("@")) {
+      telegramInput.value = "@" + tgValue;
     }
 
-    if (!error) {
-      form.submit();
-    }
+    form.submit();
   });
 });
 </script></body>
