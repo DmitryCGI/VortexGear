@@ -665,15 +665,15 @@
 <form class="space-y-4" id="order-form">
 <div>
 <label class="block text-sm font-medium text-gray-300 mb-1" for="name">Ваше Ім'я</label>
-<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="name" name="name" placeholder="Ім’я" required="" type="text"/>
+<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="name" name="name" placeholder="Ім’я" type="text"/>
 </div>
 <div>
 <label class="block text-sm font-medium text-gray-300 mb-1" for="phone">Номер телефону</label>
-<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="phone" name="phone" placeholder="(0XX) XXX-XX-XX" required="" type="tel"/>
+<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="phone" name="phone" placeholder="(0XX) XXX-XX-XX" type="tel"/>
 </div>
 <div>
 <label class="block text-sm font-medium text-gray-300 mb-1" for="Telegram">Telegram</label>
-<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="telegram" name="telegram" placeholder="@yourusername" required="" type="text"/>
+<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="telegram" name="telegram" placeholder="@yourusername" type="text"/>
 </div>
 <!-- Выбор модели -->
 <div>
@@ -1254,6 +1254,28 @@ document.addEventListener("DOMContentLoaded", () => {
       phoneInput.setCustomValidity("");
     } else {
       phoneInput.setCustomValidity("Номер повинен містити не більше 4 пробілів та починатися з +380, 380 або 0");
+    }
+  });
+});
+</script><script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("order-form");
+  const nameInput = document.getElementById("name");
+  const phoneInput = document.getElementById("phone");
+
+  phoneInput.addEventListener("input", () => {
+    const value = phoneInput.value.trim();
+    const phoneRegex = /^(\+380|380|0)[\d\s]{9,13}$/;
+    phoneInput.setCustomValidity(phoneRegex.test(value) ? "" : "Номер повинен містити не більше 4 пробілів та починатися з +380, 380 або 0");
+  });
+
+  form.addEventListener("submit", (e) => {
+    if (nameInput.value.trim() === "") {
+      nameInput.setCustomValidity("Введіть ваше ім’я");
+      nameInput.reportValidity();
+      e.preventDefault();
+    } else {
+      nameInput.setCustomValidity("");
     }
   });
 });
