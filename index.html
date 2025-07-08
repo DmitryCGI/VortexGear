@@ -1246,37 +1246,59 @@
   </script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const phoneInput = document.getElementById("phone");
-  phoneInput.addEventListener("input", () => {
-    const value = phoneInput.value.trim();
-    const phoneRegex = /^(\+380|380|0)[\d\s]{9,13}$/;
-    if (phoneRegex.test(value)) {
-      phoneInput.setCustomValidity("");
-    } else {
-      phoneInput.setCustomValidity("Номер повинен містити не більше 4 пробілів та починатися з +380, 380 або 0");
-    }
-  });
-});
-</script><script>
-document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("order-form");
   const nameInput = document.getElementById("name");
   const phoneInput = document.getElementById("phone");
+  const telegramInput = document.getElementById("telegram");
 
+  // Телефонная валидация
   phoneInput.addEventListener("input", () => {
     const value = phoneInput.value.trim();
     const phoneRegex = /^(\+380|380|0)[\d\s]{9,13}$/;
-    phoneInput.setCustomValidity(phoneRegex.test(value) ? "" : "Номер повинен містити не більше 4 пробілів та починатися з +380, 380 або 0");
+    if (value === "") {
+      phoneInput.setCustomValidity("Введіть номер телефону");
+    } else if (!phoneRegex.test(value)) {
+      phoneInput.setCustomValidity("Номер повинен містити не більше 4 пробілів та починатися з +380, 380 або 0");
+    } else {
+      phoneInput.setCustomValidity("");
+    }
   });
 
+  // Валидация формы при отправке
   form.addEventListener("submit", (e) => {
+    let isValid = true;
+
     if (nameInput.value.trim() === "") {
       nameInput.setCustomValidity("Введіть ваше ім’я");
       nameInput.reportValidity();
-      e.preventDefault();
+      isValid = false;
     } else {
       nameInput.setCustomValidity("");
     }
+
+    const phoneVal = phoneInput.value.trim();
+    const phoneRegex = /^(\+380|380|0)[\d\s]{9,13}$/;
+    if (phoneVal === "") {
+      phoneInput.setCustomValidity("Введіть номер телефону");
+      phoneInput.reportValidity();
+      isValid = false;
+    } else if (!phoneRegex.test(phoneVal)) {
+      phoneInput.setCustomValidity("Номер повинен містити не більше 4 пробілів та починатися з +380, 380 або 0");
+      phoneInput.reportValidity();
+      isValid = false;
+    } else {
+      phoneInput.setCustomValidity("");
+    }
+
+    if (telegramInput.value.trim() === "") {
+      telegramInput.setCustomValidity("Введіть Telegram");
+      telegramInput.reportValidity();
+      isValid = false;
+    } else {
+      telegramInput.setCustomValidity("");
+    }
+
+    if (!isValid) e.preventDefault();
   });
 });
 </script></body>
