@@ -1194,57 +1194,6 @@
   </script>
 <script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" type="module"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const form = document.getElementById("order-form");
-      const telegramInput = document.getElementById("telegram");
-      const modelHiddenInput = document.getElementById("hiddenModelInput");
-
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        // Телеграм с @
-        let telegram = telegramInput.value.trim();
-        if (telegram && !telegram.startsWith("@")) {
-          telegram = "@" + telegram;
-        }
-
-        const payload = {
-          name: form.name.value.trim(),
-          phone: form.phone.value.trim(),
-          telegram: telegram,
-          model: modelHiddenInput.value.trim()
-        };
-
-        const btn = form.querySelector("button[type='submit']");
-        btn.disabled = true;
-        btn.textContent = "Відправка...";
-
-        try {
-          const res = await fetch("https://vortex-api-sooty.vercel.app/api/send", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-          });
-
-          const result = await res.json();
-
-          if (result.success) {
-            form.reset();
-            showConfirmationModal();
-          } else {
-            alert("❌ Помилка сервера: " + (result.error || "невідома"));
-          }
-        } catch (err) {
-          console.error("Помилка:", err);
-          alert("❌ Не вдалося надіслати заявку.");
-        } finally {
-          btn.disabled = false;
-          btn.textContent = "Оформити заявку";
-        }
-      });
-    });
-  </script>
-<script>
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("order-form");
   const nameInput = document.getElementById("name");
@@ -1256,41 +1205,57 @@ document.addEventListener("DOMContentLoaded", () => {
     const phoneRegex = /^(\+380|380|0)[\d\s]{9,13}$/;
     if (value === "") {
       phoneInput.setCustomValidity("Введіть номер телефону");
+      return false;
     } else if (!phoneRegex.test(value)) {
       phoneInput.setCustomValidity("Номер повинен містити не більше 4 пробілів та починатися з +380, 380 або 0");
+      return false;
     } else {
       phoneInput.setCustomValidity("");
+      return true;
     }
   }
 
-  phoneInput.addEventListener("input", validatePhone);
-
   form.addEventListener("submit", (e) => {
+    e.preventDefault(); // предотвращаем отправку по умолчанию
     let error = false;
 
+    // Проверка по порядку: имя
     if (nameInput.value.trim() === "") {
       nameInput.setCustomValidity("Введіть ваше ім’я");
       nameInput.reportValidity();
       error = true;
+      return;
     } else {
       nameInput.setCustomValidity("");
     }
 
-    validatePhone();
-    if (!error && phoneInput.validationMessage !== "") {
+    // телефон
+    const phoneValid = validatePhone();
+    if (!phoneValid) {
       phoneInput.reportValidity();
       error = true;
+      return;
     }
 
-    if (telegramInput.value.trim() === "") {
+    // телеграм
+    const tg = telegramInput.value.trim();
+    if (tg === "") {
       telegramInput.setCustomValidity("Введіть Telegram");
       telegramInput.reportValidity();
       error = true;
+      return;
     } else {
       telegramInput.setCustomValidity("");
     }
 
-    if (error) e.preventDefault();
+    // автодобавление @
+    if (!tg.startsWith("@")) {
+      telegramInput.value = "@" + tg;
+    }
+
+    if (!error) {
+      form.submit();
+    }
   });
 });
 </script></body>
