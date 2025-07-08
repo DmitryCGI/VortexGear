@@ -665,15 +665,15 @@
 <form class="space-y-4" id="order-form">
 <div>
 <label class="block text-sm font-medium text-gray-300 mb-1" for="name">Ваше Ім'я</label>
-<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="name" name="name" placeholder="Ім’я" type="text"/>
+<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="name" name="name" placeholder="Ім’я" required="" type="text"/>
 </div>
 <div>
 <label class="block text-sm font-medium text-gray-300 mb-1" for="phone">Номер телефону</label>
-<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="phone" name="phone" placeholder="(0XX) XXX-XX-XX" type="tel"/>
+<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="phone" name="phone" pattern="^(\+380|380|0)[\d\s]{9,13}$" placeholder="(0XX) XXX-XX-XX" required="" title="Номер повинен містити не більше 4 пробілів та починатися з +380, 380 або 0" type="tel"/>
 </div>
 <div>
 <label class="block text-sm font-medium text-gray-300 mb-1" for="Telegram">Telegram</label>
-<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="telegram" name="telegram" placeholder="@yourusername" type="text"/>
+<input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-vortex-primary focus:border-transparent bg-[#121212]" id="telegram" name="telegram" placeholder="@yourusername" required="" type="text"/>
 </div>
 <!-- Выбор модели -->
 <div>
@@ -825,10 +825,63 @@
 </div>
 </div>
 </footer>
+<script>
+</script>
+<script>
+      function toggleAccordion(id) {
+        const content = document.getElementById('content-' + id);
+        const icon = document.getElementById('icon-' + id);
+        const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+
+        if (isOpen) {
+          content.style.maxHeight = '0';
+          content.style.opacity = '0';
+          icon.classList.remove('rotate-180');
+        } else {
+          content.style.maxHeight = content.scrollHeight + 'px';
+          content.style.opacity = '1';
+          icon.classList.add('rotate-180');
+        }
+      }
 
 
+
+    </script>
 </div>
+<script>
+    function handleNavClick(event, sectionId) {
+      event.preventDefault();
 
+      const target = document.getElementById(sectionId);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      const menu = document.getElementById('mobile-menu');
+      if (menu) {
+        menu.classList.remove('translate-x-0');
+        menu.classList.add('translate-x-[110%]');
+      }
+
+      if (event.target && typeof event.target.blur === 'function') {
+        event.target.blur();
+      }
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById("mobile-menu");
+      const isOpen = !menu.classList.contains("translate-x-[110%]");
+      menu.classList.toggle("translate-x-[110%]");
+      menu.classList.toggle("translate-x-0");
+
+      if (!isOpen) {
+        menu.classList.remove("shadow-xl", "backdrop-blur-md");
+      } else {
+        menu.classList.add("shadow-xl", "backdrop-blur-md");
+      }
+    }
+
+  </script>
 <!-- Overlay: фон, ловит клик -->
 <div class="fixed inset-0 z-[9998] hidden md:hidden bg-black/70 backdrop-blur-md" id="mobile-overlay" onclick="closeMobileMenu()">
 </div>
@@ -844,14 +897,104 @@
 <a class="text-2xl font-semibold hover:text-vortex-accent transition-all drop-shadow-md hover:scale-110 tracking-wide font-bold" href="#gallery" onclick="handleNavClick(event, 'gallery')">Галерея</a>
 <div class="w-3/4 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-50"></div>
 </div>
+<script>
+    function handleNavClick(event, sectionId) {
+      event.preventDefault();
 
+      const target = document.getElementById(sectionId);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
 
+      const menu = document.getElementById('mobile-menu');
+      if (menu && menu.classList.contains('scale-100')) {
+        menu.classList.remove('scale-100', 'opacity-100');
+        menu.classList.add('scale-0', 'opacity-0');
+      }
+
+      if (event.target && typeof event.target.blur === 'function') {
+        event.target.blur();
+      }
+    }
+  </script>
+<script>
+    window.addEventListener("load", () => {
+      const preloader = document.getElementById("preloader");
+      if (preloader) {
+        setTimeout(() => {
+          preloader.style.opacity = "0";
+          setTimeout(() => {
+            preloader.remove();
+          }, 200); // Плавное исчезновение
+        }, 1500); // Прелоадер виден 2 секунды
+      }
+    });
+  </script>
 <!-- Бургер-фон + меню -->
 <div class="fixed inset-0 z-[9998] hidden md:hidden bg-black/70 backdrop-blur-md" id="mobile-overlay" onclick="closeMobileMenu()">
 </div>
 <button id="orderBtn">Заказать</button>
 
+<script>
+    // Отключаем авто-восстановление скролла браузером
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
 
+    // Принудительно скроллим вверх при загрузке
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      }, 10);
+    });
+  </script>
+<script>
+    function toggleModelDropdown() {
+      const dropdown = document.getElementById("modelDropdownList");
+      const arrow = document.getElementById("arrowIcon");
+      const isOpen = dropdown.style.maxHeight !== "0px" && dropdown.style.maxHeight !== "";
+
+      if (isOpen) {
+        dropdown.style.maxHeight = "0";
+        dropdown.style.opacity = "0";
+        arrow.classList.remove("rotate-180");
+      } else {
+        dropdown.style.maxHeight = dropdown.scrollHeight + "px";
+        dropdown.style.opacity = "1";
+        arrow.classList.add("rotate-180");
+      }
+    }
+
+    function selectModel(el) {
+      const name = el.dataset.name;
+      const price = el.dataset.price;
+      const size = el.dataset.size;
+      const bg = el.dataset.bg;
+      const radius = el.dataset.radius;
+      const rank = el.dataset.rank;
+      const pulse = parseFloat(el.dataset.pulse);
+
+      const glowColors = {
+        s: `rgba(0, 183, 255, ${pulse})`,
+        m: `rgba(255, 153, 0, ${pulse})`,
+        l: `rgba(255, 50, 50, ${pulse})`
+      };
+
+      document.getElementById("selectedModel").textContent = name;
+      document.getElementById("selectedModelDropdown").textContent = name;
+      document.getElementById("selectedSize").textContent = size;
+      document.getElementById("selectedPrice").textContent = new Intl.NumberFormat("ru-RU").format(price) + " ₴";
+
+      const card = document.getElementById("modelCard");
+      card.style.backgroundImage = `url('${bg}')`;
+      card.style.setProperty("--glow-color", glowColors[rank]);
+      card.style.borderRadius = radius;
+
+      document.getElementById("hiddenModelInput").value = name;
+    toggleModelDropdown();
+    }
+
+  </script>
 <style>
     #modelDropdownList li {
       transition: opacity 0.4s ease;
@@ -861,7 +1004,47 @@
       transform: rotate(180deg);
     }
   </style>
+<script>
+    (function () {
+      const select = document.getElementById("modelSelect");
+      const arrow = document.getElementById("customArrow");
 
+      if (!select || !arrow) return;
+
+      let isOpen = false;
+
+      select.addEventListener("click", () => {
+        isOpen = !isOpen;
+        arrow.classList.toggle("rotate-180", isOpen);
+      });
+
+      select.addEventListener("blur", () => {
+        isOpen = false;
+        arrow.classList.remove("rotate-180");
+      });
+    })();
+
+    function toggleModelDropdown() {
+      const dropdown = document.getElementById("modelDropdownList");
+      const arrow = document.getElementById("arrowIcon");
+
+      const isOpen = dropdown.classList.contains("max-h-[0px]") || dropdown.style.maxHeight === "0px" || dropdown.style.maxHeight === "";
+
+      if (isOpen) {
+        dropdown.style.maxHeight = dropdown.scrollHeight + "px";
+        dropdown.style.opacity = "1";
+        arrow.classList.add("rotate-180");
+      } else {
+        dropdown.style.maxHeight = "0";
+        dropdown.style.opacity = "0";
+        arrow.classList.remove("rotate-180");
+      }
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+
+    });
+
+  </script>
 <!-- МОДАЛЬНОЕ ОКНО -->
 <style>
     @keyframes modal-bg-in {
@@ -940,67 +1123,135 @@
       </button>
 </div>
 </div>
+<script>
+    function showConfirmationModal() {
+      const modal = document.getElementById("confirmation-modal");
+      const backdrop = document.getElementById("modal-backdrop");
+      const content = document.getElementById("modal-content");
 
+      modal.classList.remove("hidden");
+      backdrop.classList.remove("modal-bg-close");
+      content.classList.remove("modal-content-close");
 
+      backdrop.classList.add("modal-bg");
+      content.classList.add("modal-content-animate");
 
+      document.body.style.overflow = "hidden";
+    }
 
+    function hideConfirmationModal() {
+      const modal = document.getElementById("confirmation-modal");
+      const backdrop = document.getElementById("modal-backdrop");
+      const content = document.getElementById("modal-content");
 
+      backdrop.classList.remove("modal-bg");
+      content.classList.remove("modal-content-animate");
+
+      backdrop.classList.add("modal-bg-close");
+      content.classList.add("modal-content-close");
+
+      setTimeout(() => {
+        modal.classList.add("hidden");
+        document.body.style.overflow = "auto";
+      }, 400);
+    }
+  </script>
+<script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById("mobile-menu");
+      if (!menu) return;
+      const isOpen = menu.classList.contains("scale-100");
+
+      menu.classList.toggle("scale-100", !isOpen);
+      menu.classList.toggle("scale-0", isOpen);
+      menu.classList.toggle("opacity-100", !isOpen);
+      menu.classList.toggle("opacity-0", isOpen);
+
+      if (!isOpen) {
+        menu.classList.add("shadow-xl", "backdrop-blur-md");
+        document.body.style.overflow = "hidden";
+      } else {
+        menu.classList.remove("shadow-xl", "backdrop-blur-md");
+        document.body.style.overflow = "auto";
+      }
+    }
+  </script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
+      mobileMenuLinks.forEach(link => {
+        link.addEventListener("click", () => {
+          document.body.style.overflow = "auto";
+        });
+      });
+    });
+  </script>
+<script>
+    const preloadImages = ["bg-s.png", "bg-m.png", "bg-l.png"];
+    preloadImages.forEach(name => {
+      const img = new Image();
+      img.src = `backgrounds/${name}`;
+    });
+  </script>
+<script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" type="module"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("order-form");
-  const name = document.getElementById("name");
-  const phone = document.getElementById("phone");
-  const telegram = document.getElementById("telegram");
-  const phoneRegex = /^(\+380|380|0)[\d\s]{9,13}$/;
+  const telegramInput = document.getElementById("telegram");
 
-  form.addEventListener("submit", (e) => {
+  if (!form) return;
+
+  form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    // Очистка всех ошибок
-    name.setCustomValidity("");
-    phone.setCustomValidity("");
-    telegram.setCustomValidity("");
+    const btn = this.querySelector("button[type='submit']");
+    btn.disabled = true;
+    btn.textContent = "Отправка...";
 
-    // Валидация по порядку
+    const formData = new FormData(this);
+    let telegram = formData.get("telegram").trim();
 
-    // Имя
-    if (name.value.trim() === "") {
-      name.setCustomValidity("Введіть ваше ім’я");
-      name.reportValidity();
-      name.focus();
-      return;
+    if (telegram && !telegram.startsWith("@")) {
+      telegram = "@" + telegram;
     }
 
-    // Телефон
-    const rawPhone = phone.value.trim();
-    if (rawPhone === "") {
-      phone.setCustomValidity("Введіть номер телефону");
-      phone.reportValidity();
-      phone.focus();
-      return;
-    }
-    if (!phoneRegex.test(rawPhone)) {
-      phone.setCustomValidity("Номер повинен містити не більше 4 пробілів та починатися з +380, 380 або 0");
-      phone.reportValidity();
-      phone.focus();
-      return;
-    }
+    const payload = {
+      name: formData.get("name"),
+      phone: formData.get("phone"),
+      telegram: telegram,
+      model: formData.get("model")
+    };
 
-    // Telegram
-    let tg = telegram.value.trim();
-    if (tg === "") {
-      telegram.setCustomValidity("Введіть Telegram");
-      telegram.reportValidity();
-      telegram.focus();
-      return;
-    }
-    if (!tg.startsWith("@")) {
-      tg = "@" + tg;
-    }
-    telegram.value = tg;
+    try {
+      const res = await fetch("https://vortex-api-sooty.vercel.app/api/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
 
-    form.submit();
+      const result = await res.json();
+
+      if (result.success) {
+        showConfirmationModal();
+        this.reset();
+        document.getElementById("selectedModel").textContent = "Black Titan S";
+        document.getElementById("selectedModelDropdown").textContent = "Black Titan S";
+        document.getElementById("selectedSize").textContent = "120×75 см";
+        document.getElementById("selectedPrice").textContent = "14 000 ₴";
+        document.getElementById("modelCard").style.backgroundImage = "url('backgrounds/bg-s.png')";
+        document.getElementById("modelCard").style.setProperty("--glow-color", "rgba(0, 183, 255, 0.8)");
+        document.getElementById("hiddenModelInput").value = "Black Titan S";
+      } else {
+        alert("❌ Ошибка сервера: " + (result.error || "неизвестная"));
+      }
+    } catch (err) {
+      console.error("Ошибка:", err);
+      alert("❌ Не удалось отправить. Проверьте подключение.");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Оформить заказ";
+    }
   });
 });
 </script></body>
-<!--patched version v72--></html>
+</html>
